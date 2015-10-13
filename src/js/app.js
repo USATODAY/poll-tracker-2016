@@ -2,14 +2,15 @@ define(
   [
     'jquery',
     'underscore',
-    'templates'
+    'templates',
+    'views/AppView'
   ],
-  function(jQuery, _, templates){
+  function(jQuery, _, templates, AppView){
     var app = app || {};
 
     app.init = function() {
-      console.log("app initialized");
-      jQuery("body").append(templates["template.html"]({test: "Hello world!"}));
+        var appView = new AppView();
+        appView.render();
     };
 
     return app;
