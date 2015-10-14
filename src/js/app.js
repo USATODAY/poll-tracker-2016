@@ -10,7 +10,7 @@ define(
 
     app.init = function() {
         var appView = new AppView();
-        appView.render();
+        // appView.render();
     };
 
     return app;

@@ -1,0 +1,17 @@
+.iapp-candidate-detail-wrap {
+    margin: 20px 0;
+    transform: translateX(-100%);
+}
+
+.iapp-candidate-bar {
+    height: 50px;
+    width: 100%;
+}
+
+.iapp-candidate-name {
+    font-family: "Futura Today Light", Arial, sans-serif;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(100%, -50%);
+}
