@@ -3,7 +3,7 @@ define([
     "underscore",
     "backbone",
     "templates",
-    "utils",
+    "projUtils",
     "config",
     "views/ControlsView",
     "views/DetailView"
@@ -26,6 +26,8 @@ define([
         },
         getData: function() {
             var _this = this;
+            console.log("utils: ");
+            console.log(utils);
             var dataURL = utils.getDataURL(config.dataURL);
             jQuery.getJSON(dataURL, function(data) {
                 _this.data = data;

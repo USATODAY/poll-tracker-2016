@@ -6,7 +6,6 @@ define([
 ], function(jQuery, _, Backbone, templates) {
     return Backbone.View.extend({
         initialize: function() {
-            console.log(templates);
             this.render();
         },
         el: '.iapp-control-wrap',

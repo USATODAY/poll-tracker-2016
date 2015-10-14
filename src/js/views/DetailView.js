@@ -20,7 +20,6 @@ define([
             _.each(this.data.candidate, function(candidateData) {
                 //create new candidate detail view for each candidate in this data entry
                 var candidateDetailView = new CandidateDetailView({data: candidateData});
-                console.log(candidateDetailView.el);
                 _this.$el.append(candidateDetailView.el);
                 //save candidate detail view to detail view's array
                 _this.candidateDetailViews.push(candidateDetailView);
