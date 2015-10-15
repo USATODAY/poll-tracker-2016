@@ -24,7 +24,13 @@ define([
         },
         update: function(newData) {
             this.data = newData;
-            var offsetX = "-" + (100 - this.data.value) + "%";
+            var offsetX;
+            if (this.data) {
+                offsetX = "-" + (100 - this.data.value) + "%";
+            } else {
+                offsetX = "-100%";
+            }
+
             this.$el.velocity({
                 translateX: offsetX,
                 duration: 2000,

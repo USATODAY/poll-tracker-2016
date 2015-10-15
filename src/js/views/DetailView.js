@@ -32,7 +32,12 @@ define([
             _.each(this.candidateDetailViews, function(candidateDetailView) {
                 var name = candidateDetailView.data.name;
                 var newDetailData = _.findWhere(_this.data.candidate, {name: name});
-                candidateDetailView.update(newDetailData);
+                //check if data exists for candidate in new entry
+                if (newDetailData) {
+                    candidateDetailView.update(newDetailData);
+                } else {
+                    candidateDetailView.update(null);
+                }
             });
         }
     });
