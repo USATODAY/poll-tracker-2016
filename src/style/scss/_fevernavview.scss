@@ -1,5 +1,6 @@
 .iapp-fever-nav-wrap {
     background: white;
+    position: relative;
 }
 
 .iapp-fever-nav-chart-wrap {
@@ -29,4 +30,19 @@
     stroke-width: 0;
 }
 
+.iapp-fever-nav-scrubber-wrap {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.iapp-fever-nav-scrubber-top {
+  background-color: $dark-grey;
+  color: white;
+  height: 30px;
+  font-family: "Futura Today Light", Arial, sans-serif;
+  font-size: 0.8em;
+  padding: 0 1em;
+}
 

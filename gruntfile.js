@@ -23,6 +23,7 @@ module.exports = function(grunt) {
     "d3": '../../bower_components/d3/d3',
     "angular": '../../bower_components/angular/angular',
     "velocity": '../../bower_components/velocity/velocity',
+    "humanize": '../../bower_components/humanize/humanize',
     "mapbox": '../../bower_components/mapbox.js/mapbox.uncompressed'
   };
 

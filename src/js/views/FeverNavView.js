@@ -3,8 +3,9 @@ define([
     "underscore",
     "backbone",
     "d3",
+    "humanize",
     "templates"
-], function(jQuery, _, Backbone, d3, templates) {
+], function(jQuery, _, Backbone, d3, humanize, templates) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = this.parseData(opts.data);
@@ -13,13 +14,17 @@ define([
                 colors[candidate.name] = candidate.color;
             });
             this.colors = colors;
-            console.log(this.colors);
+            this.currentEntry = 0;
             this.render();
         },
         template: templates["feverNavView.html"],
         el: ".iapp-fever-nav-wrap",
         render: function() {
             this.$el.html(this.template());
+            var currentDate = this.data[this.currentEntry].date;
+            var dateText = humanize.date("M j, Y", currentDate);
+            console.log(dateText);
+            this.$(".iapp-fever-nav-scrubber-top").text(dateText);
             this.drawChart(this.data);
         },
         drawChart: function(data) {
@@ -53,7 +58,7 @@ define([
                 return d3.svg.axis()
                     .scale(x)
                     .orient("bottom")
-                    .ticks(d3.time.weeks);
+                    .ticks(d3.time.weeks, 2);
             }
 
             color.domain(d3.keys(data[data.length - 1]).filter(function(key) { return key !== "date"; }));
@@ -67,7 +72,7 @@ define([
                         };
                     })
                 };
-            });
+            }).reverse();
 
             x.domain(d3.extent(data, function(d) { return d.date; }));
             y.domain([
@@ -120,17 +125,18 @@ define([
         getDimensions: function() {
             margin = this.getMargin();
             var width = window.innerWidth >= 1200 ? (2400 - (margin.left + margin.right)) : (window.innerWidth * 2 - (margin.left + margin.right));
+            var height = 180 - (margin.top + margin.bottom);
             return {
-                height: 180,
+                height: height,
                 width: width
             };
         },
         getMargin: function() {
             return {
-                top: 10,
-                right: 10,
+                top: 30,
+                right: 60,
                 bottom: 10,
-                left: 10
+                left: 60
             };
         }
     });
