@@ -43,6 +43,7 @@
 .iapp-fever-nav-scrubber-top {
   background-color: $dark-grey;
   color: white;
+  cursor: grab;
   height: 30px;
   font-family: "Futura Today Light", Arial, sans-serif;
   font-size: 0.8em;
@@ -52,3 +53,6 @@
   @extend .triangle;
 }
 
+.ui-draggable-dragging .iapp-fever-nav-scrubber-top {
+    cursor: grabbing;
+}
