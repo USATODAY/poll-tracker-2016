@@ -28,10 +28,7 @@ define([
 
             //cache el's width for later use
             this.containerWidth = this.$el.width();
-
-            var currentDate = this.data[this.currentEntry].date;
-            var dateText = humanize.date("M j, Y", currentDate);
-            this.$(".iapp-fever-nav-scrubber-top").text(dateText);
+            this.updateDate();
             this.$(".iapp-fever-nav-scrubber-wrap").draggable({
                 axis: "x",
                 containment: "parent",
@@ -165,8 +162,17 @@ define([
         chartDrag: function(e, ui) {
             //runs when chart is dragged
         },
+        updateDate: function() {
+            var currentDate = this.data[this.currentEntry].date;
+            var dateText = humanize.date("M j, Y", currentDate);
+            this.$(".iapp-fever-nav-scrubber-top").text(dateText);
+        },
         setEntry: function(newIndex) {
+            if (newIndex > this.data.length - 1) {
+                newIndex = this.data.length - 1;
+            }
             this.currentEntry = newIndex;
+            _.throttle(_.bind(this.updateDate, this), 1000)();
             Backbone.trigger("poll:setCurrent", this.currentEntry);
         }
     });
