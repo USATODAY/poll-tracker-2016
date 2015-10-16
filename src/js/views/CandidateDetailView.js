@@ -25,7 +25,7 @@ define([
         update: function(newData) {
             this.data = newData;
             var offsetX;
-            if (this.data) {
+            if (this.data.value) {
                 offsetX = "-" + (100 - this.data.value) + "%";
             } else {
                 offsetX = "-100%";

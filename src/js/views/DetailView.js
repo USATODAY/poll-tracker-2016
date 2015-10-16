@@ -27,17 +27,21 @@ define([
             return this;
         },
         update: function(newData) {
+            console.log("update");
             var _this = this;
             this.data = newData;
             _.each(this.candidateDetailViews, function(candidateDetailView) {
-                var name = candidateDetailView.data.name;
-                var newDetailData = _.findWhere(_this.data.candidate, {name: name});
-                //check if data exists for candidate in new entry
-                if (newDetailData) {
-                    candidateDetailView.update(newDetailData);
-                } else {
-                    candidateDetailView.update(null);
+                if (candidateDetailView) {
+                    var name = candidateDetailView.data.name;
+                    var newDetailData = _.findWhere(_this.data.candidate, {name: name});
+                    //check if data exists for candidate in new entry
+                    if (newDetailData) {
+                        candidateDetailView.update(newDetailData);
+                    } else {
+                        candidateDetailView.update({name: name, value: null});
+                    }
                 }
+                
             });
         }
     });

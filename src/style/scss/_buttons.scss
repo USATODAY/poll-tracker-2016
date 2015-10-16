@@ -13,3 +13,21 @@
     transition: background-color .5s;
   }
 }
+
+/******
+bits to use
+******/
+.triangle {
+  &:after {
+    border-top: solid 10px $dark-grey;
+    border-left: solid 20px transparent;
+    border-right: solid 20px transparent;
+    content:'';
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 100%;
+    transform: translate(-50%, 0);
+    width: 0;
+  }
+}

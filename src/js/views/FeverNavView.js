@@ -4,7 +4,9 @@ define([
     "backbone",
     "d3",
     "humanize",
-    "templates"
+    "templates",
+    "jquery_ui",
+    "jquery_ui_touch_punch"
 ], function(jQuery, _, Backbone, d3, humanize, templates) {
     return Backbone.View.extend({
         initialize: function(opts) {
@@ -15,16 +17,26 @@ define([
             });
             this.colors = colors;
             this.currentEntry = 0;
+            this.$chart = null;
             this.render();
         },
         template: templates["feverNavView.html"],
         el: ".iapp-fever-nav-wrap",
         render: function() {
+            var _this = this;
             this.$el.html(this.template());
+
+            //cache el's width for later use
+            this.containerWidth = this.$el.width();
+
             var currentDate = this.data[this.currentEntry].date;
             var dateText = humanize.date("M j, Y", currentDate);
-            console.log(dateText);
             this.$(".iapp-fever-nav-scrubber-top").text(dateText);
+            this.$(".iapp-fever-nav-scrubber-wrap").draggable({
+                axis: "x",
+                containment: "parent",
+                drag: _.bind(_this.scrubDrag, _this)
+            });
             this.drawChart(this.data);
         },
         drawChart: function(data) {
@@ -86,6 +98,8 @@ define([
                 .attr("class", 'iapp-fever-chart')
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            this.$chart = this.$('.iapp-fever-chart');
             
             svg.append("g")
                 .attr("class", "grid")
@@ -134,10 +148,26 @@ define([
         getMargin: function() {
             return {
                 top: 30,
-                right: 60,
+                right: 50,
                 bottom: 10,
-                left: 60
+                left: 50
             };
+        },
+        scrubDrag: function(e, ui) {
+            //runs when scrubber is dragged
+            var range = this.containerWidth - 100;
+            var percPos = ui.position.left / range;
+            var percStr = (percPos * 100) + "%";
+            var newDataIndex = Math.floor((1 - percPos) * this.data.length);
+            this.$chart.css({left: "-" + percStr});
+            this.setEntry(newDataIndex);
+        },
+        chartDrag: function(e, ui) {
+            //runs when chart is dragged
+        },
+        setEntry: function(newIndex) {
+            this.currentEntry = newIndex;
+            Backbone.trigger("poll:setCurrent", this.currentEntry);
         }
     });
 });
