@@ -1,14 +1,22 @@
 .iapp-fever-nav-wrap {
-    background: white;
-    position: relative;
+    background: $medium-grey;
+    bottom: 0;
+    padding: 20px;
+    position: fixed;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+    @include BoxShadowHelper(2);
 }
 
 .iapp-fever-nav-chart-wrap {
     overflow-x: hidden;
+    position: relative;
     width: 100%;
 }
 
 .iapp-fever-chart {
+    background-color: white;
     left: -100%;
     position: relative;
     // transform: translate(-50%, 0);
@@ -35,22 +43,25 @@
 .iapp-fever-nav-scrubber-wrap {
     bottom: 0;
     position: absolute;
-    right: 0;
+    right: 20px;
     top: 0;
     // transform: translate(50%, 0);
 }
 
 .iapp-fever-nav-scrubber-top {
-  background-color: $dark-grey;
-  color: white;
-  cursor: grab;
-  height: 30px;
-  font-family: "Futura Today Light", Arial, sans-serif;
-  font-size: 0.8em;
-  // padding: 0 1em;
-  position: relative;
-  width: 100px;
-  @extend .triangle;
+    background-color: $dark-grey;
+    border-radius: 8px;
+    color: white;
+    cursor: grab;
+    height: 30px;
+    font-family: "Futura Today Light", Arial, sans-serif;
+    font-size: 0.8em;
+    padding: 5px;
+    // padding: 0 1em;
+    position: relative;
+    text-align: center;
+    width: 100px;
+    @extend .triangle;
 }
 
 .ui-draggable-dragging .iapp-fever-nav-scrubber-top {

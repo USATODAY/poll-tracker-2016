@@ -10,6 +10,7 @@ define([
 ], function(jQuery, _, Backbone, d3, humanize, templates) {
     return Backbone.View.extend({
         initialize: function(opts) {
+            this.listenTo(Backbone, "window:resize", this.redraw);
             this.data = this.parseData(opts.data);
             var colors = {};
             _.each(opts.data[0].candidate, function(candidate) {
@@ -27,7 +28,8 @@ define([
             this.$el.html(this.template());
 
             //cache el's width for later use
-            this.containerWidth = this.$el.width();
+            // this.containerWidth = this.$el.width() - 40;
+            this.containerWidth = this.$(".iapp-fever-nav-chart-wrap").width();
             this.updateDate();
             this.$(".iapp-fever-nav-scrubber-wrap").draggable({
                 axis: "x",
@@ -41,37 +43,32 @@ define([
             var dimensions = this.getDimensions();
             var margin = this.getMargin();
 
-            var color = d3.scale.category10();
+            var color = this.color = d3.scale.category10();
 
-            var x = d3.time.scale()
+            var x = this.x = d3.time.scale()
                 .range([0, dimensions.width]);
 
-            var y = d3.scale.linear()
+            var y = this.y = d3.scale.linear()
                 .range([dimensions.height, 0]);
 
-            var xAxis = d3.svg.axis()
+            var xAxis = this.xAxis = d3.svg.axis()
                 .scale(x)
                 .orient("bottom");
 
-            var yAxis = d3.svg.axis()
+            var yAxis = this.yAxis = d3.svg.axis()
                 .scale(y)
                 .orient("left");
 
-            var line = d3.svg.line()
+            var line = this.line = d3.svg.line()
                 .interpolate("basis")
                 .x(function(d) { return x(d.date); })
                 .y(function(d) { return y(d.value); });
 
             // function for the x grid lines
-            function make_x_axis() {
-                return d3.svg.axis()
-                    .scale(x)
-                    .orient("bottom")
-                    .ticks(d3.time.weeks, 2);
-            }
+            
 
             color.domain(d3.keys(data[data.length - 1]).filter(function(key) { return key !== "date"; }));
-            var candidates = d3.keys(data[0]).filter(function(k) {return k !== "date"; }).map(function(candidate) {
+            var candidates = this.candidates = d3.keys(data[0]).filter(function(k) {return k !== "date"; }).map(function(candidate) {
                 return {
                     name: candidate,
                     values: data.map(function(d) {
@@ -101,7 +98,7 @@ define([
             svg.append("g")
                 .attr("class", "grid")
                 .attr("transform", "translate(0," + dimensions.height + ")")
-                .call(make_x_axis()
+                .call(this.make_x_axis()
                     .tickSize(-dimensions.height, 0, 0)
                     .tickFormat("")
                 );
@@ -118,8 +115,59 @@ define([
                 .attr("d", function(d) { return line(d.values); })
                 .style("stroke", function(d) { return _this.colors[d.name]; });
 
+        },
+        make_x_axis: function() {
+            return d3.svg.axis()
+                .scale(this.x)
+                .orient("bottom")
+                .ticks(d3.time.weeks, 2);
+        },
+        redraw: function() {
+            console.log("redraw");
+            var _this = this;
+            this.containerWidth = this.$(".iapp-fever-nav-chart-wrap").width();
+            var dimensions = this.getDimensions(),
+                margin = this.getMargin(),
+                color = this.color,
+                line = this.line,
+                candidates = this.candidates;
+
+            console.log(dimensions.width);
+
+            this.x.range([0, dimensions.width]);
+
+            this.y.range([dimensions.height, 0]);
+
+            this.$('.iapp-fever-nav-chart-wrap').empty();
+            var svg = d3.select(this.$('.iapp-fever-nav-chart-wrap')[0]).append("svg")
+                .attr("width", dimensions.width + margin.left + margin.right)
+                .attr("height", dimensions.height + margin.top + margin.bottom)
+                .attr("class", 'iapp-fever-chart')
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            this.$chart = this.$('.iapp-fever-chart');
+
             
-        
+            svg.append("g")
+                .attr("class", "grid")
+                .attr("transform", "translate(0," + dimensions.height + ")")
+                .call(this.make_x_axis()
+                    .tickSize(-dimensions.height, 0, 0)
+                    .tickFormat("")
+                );
+
+
+            var candidate = svg.selectAll(".candidate")
+                .data(candidates)
+                .enter().append("g")
+                .attr("class", "candidate");
+
+            
+            candidate.append("path")
+                .attr("class", "line")
+                .attr("d", function(d) { return line(d.values); })
+                .style("stroke", function(d) { return _this.colors[d.name]; });
         },
         parseData: function(rawData) {
             //Take in raw poll data and format into a candidate-based format
@@ -135,7 +183,7 @@ define([
         },
         getDimensions: function() {
             margin = this.getMargin();
-            var width = window.innerWidth >= 1200 ? (2400 - (margin.left + margin.right)) : (window.innerWidth * 2 - (margin.left + margin.right));
+            var width = window.innerWidth >= 1200 ? (2320 - (margin.left + margin.right)) : ((window.innerWidth - 40) * 2  - (margin.left + margin.right));
             var height = 180 - (margin.top + margin.bottom);
             return {
                 height: height,
@@ -153,7 +201,7 @@ define([
         scrubDrag: function(e, ui) {
             //runs when scrubber is dragged
             var range = this.containerWidth - 100;
-            var percPos = ui.position.left / range;
+            var percPos = (ui.position.left - 20) / range;
             var percStr = (percPos * 100) + "%";
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
             this.$chart.css({left: "-" + percStr});
