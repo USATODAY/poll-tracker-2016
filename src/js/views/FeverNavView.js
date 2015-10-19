@@ -31,11 +31,13 @@ define([
             // this.containerWidth = this.$el.width() - 40;
             this.containerWidth = this.$(".iapp-fever-nav-chart-wrap").width();
             this.updateDate();
-            this.$(".iapp-fever-nav-scrubber-wrap").draggable({
+            this.$scrubber = this.$('.iapp-fever-nav-scrubber-wrap');
+            this.$scrubber.draggable({
                 axis: "x",
                 containment: "parent",
                 drag: _.bind(_this.scrubDrag, _this)
             });
+            
             this.drawChart(this.data);
         },
         drawChart: function(data) {
@@ -94,6 +96,11 @@ define([
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             this.$chart = this.$('.iapp-fever-chart');
+            this.$chart.draggable({
+                axis: "x",
+                containment: this.getContainment(),
+                drag: _.bind(_this.chartDrag, _this),
+            });
             
             svg.append("g")
                 .attr("class", "grid")
@@ -200,15 +207,26 @@ define([
         },
         scrubDrag: function(e, ui) {
             //runs when scrubber is dragged
+            this.$chart.stop();
+            this.$scrubber.stop();
             var range = this.containerWidth - 100;
             var percPos = (ui.position.left - 20) / range;
             var percStr = (percPos * 100) + "%";
+            var pixelStr = "" + (percPos * this.containerWidth);
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
-            this.$chart.css({left: "-" + percStr});
+            this.$chart.css({left: "-" + pixelStr});
             this.setEntry(newDataIndex);
         },
         chartDrag: function(e, ui) {
             //runs when chart is dragged
+            this.$chart.stop();
+            this.$scrubber.stop();
+            var range = this.containerWidth;
+            percPos = Math.abs(ui.position.left) / range;
+            var newDataIndex = Math.floor((1 - percPos) * this.data.length);
+            var newScrubberPos = (range - 100) * percPos + 20;
+            this.$scrubber.css({left: newScrubberPos});
+            this.setEntry(newDataIndex);
         },
         updateDate: function() {
             var currentDate = this.data[this.currentEntry].date;
@@ -222,6 +240,11 @@ define([
             this.currentEntry = newIndex;
             _.throttle(_.bind(this.updateDate, this), 1000)();
             Backbone.trigger("poll:setCurrent", this.currentEntry);
+        },
+        getContainment: function() {
+            var winOffset = (window.innerWidth - this.containerWidth) / 2;
+            var leftMin = -(this.containerWidth - winOffset);
+            return [leftMin, 0, winOffset, 0];
         }
     });
 });
