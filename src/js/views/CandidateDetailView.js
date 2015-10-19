@@ -27,8 +27,10 @@ define([
             var offsetX;
             if (this.data.value) {
                 offsetX = "-" + (100 - this.data.value) + "%";
+                this.$('.iapp-candidate-percent').text(this.data.value + "%");
             } else {
                 offsetX = "-100%";
+                this.$('.iapp-candidate-percent').text("0%");
             }
 
             this.$el.velocity({
