@@ -3,8 +3,9 @@ define([
     "underscore",
     "backbone",
     "templates",
+    "config",
     "views/CandidateDetailView"
-], function(jQuery, _, Backbone, templates, CandidateDetailView) {
+], function(jQuery, _, Backbone, templates, config, CandidateDetailView) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = opts.data;
@@ -17,8 +18,9 @@ define([
             var _this = this;
             this.$el.html(this.template());
             // loop through each candidate entry in the views data
-            _.each(this.data.candidate, function(candidateData) {
+            _.each(this.data.candidate, function(candidateData, i) {
                 //create new candidate detail view for each candidate in this data entry
+                candidateData.color = config.colors[i];
                 var candidateDetailView = new CandidateDetailView({data: candidateData});
                 _this.$el.append(candidateDetailView.el);
                 //save candidate detail view to detail view's array

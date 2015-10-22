@@ -1,0 +1,38 @@
+.iapp-party-select {
+    margin: 2em auto;
+    width: 460px;
+}
+
+.iapp-party-select-button {
+    background-color: $blue;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Futura Today Light" , Arial, sans-serif;
+    margin: 0 10px;
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+    @include BoxShadowHelper(1);
+    &:hover {
+        @include BoxShadowHelperInset(2);
+    }
+}
+
+.iapp-race-select-wrap {
+    font-family: "Futura Today Light" , Arial, sans-serif;
+    position: relative;
+}
+
+.iapp-race-select {
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+}
+
+.iapp-race-select-display {
+    
+}
+
