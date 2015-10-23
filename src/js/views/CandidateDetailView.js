@@ -35,7 +35,7 @@ define([
 
             this.$el.velocity({
                 translateX: offsetX,
-                duration: 2000,
+                duration: 1000,
                 easing: "easeOutExpo"
             });
         },

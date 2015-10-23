@@ -3,11 +3,12 @@ define([
     "underscore",
     "backbone",
     "d3",
+    "textures",
     "humanize",
     "templates",
     "jquery_ui",
     "jquery_ui_touch_punch"
-], function(jQuery, _, Backbone, d3, humanize, templates) {
+], function(jQuery, _, Backbone, d3, textures, humanize, templates) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.redraw);
@@ -88,20 +89,24 @@ define([
                 d3.max(candidates, function(c) { return d3.max(c.values, function(v) { return v.value; }); })
             ]);
 
-            var svg = d3.select(this.$('.iapp-fever-nav-chart-wrap')[0]).append("svg")
+            var svg = d3.select(this.$('.iapp-fever-nav-chart-inner-wrap')[0]).append("svg")
                 .attr("width", dimensions.width + margin.left + margin.right)
                 .attr("height", dimensions.height + margin.top + margin.bottom)
                 .attr("class", 'iapp-fever-chart')
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            this.$chart = this.$('.iapp-fever-chart');
-            this.$chart.draggable({
-                axis: "x",
-                containment: this.getContainment(),
-                drag: _.bind(_this.chartDrag, _this),
-            });
-            
+            // svg.append("rect")
+            //     .attr("width", dimensions.width + margin.left + margin.right)
+            //     .attr("height", dimensions.height + margin.top + margin.bottom)
+            //     .attr("transform", "translate(" + -margin.left + "," + -margin.top + ")")
+            //     .attr("class", 'iapp-fever-chart-bg')
+            //     .attr("fill", 'white')
+            //     .attr("rx", 6)
+            //     .attr("ry", 6);
+
+
+                        
             svg.append("g")
                 .attr("class", "grid")
                 .attr("transform", "translate(0," + dimensions.height + ")")
@@ -121,6 +126,16 @@ define([
                 .attr("class", "line")
                 .attr("d", function(d) { return line(d.values); })
                 .style("stroke", function(d) { return _this.colors[d.name]; });
+
+            this.drawEndBuffers(dimensions, margin);
+            
+            this.$chart = this.$('.iapp-fever-nav-chart-inner-wrap');
+            this.$chart.draggable({
+                axis: "x",
+                containment: this.getContainment(),
+                drag: _.bind(_this.chartDrag, _this),
+            });
+
 
         },
         make_x_axis: function() {
@@ -130,7 +145,6 @@ define([
                 .ticks(d3.time.weeks, 2);
         },
         redraw: function() {
-            console.log("redraw");
             var _this = this;
             this.containerWidth = this.$(".iapp-fever-nav-chart-wrap").width();
             var dimensions = this.getDimensions(),
@@ -139,21 +153,18 @@ define([
                 line = this.line,
                 candidates = this.candidates;
 
-            console.log(dimensions.width);
-
             this.x.range([0, dimensions.width]);
 
             this.y.range([dimensions.height, 0]);
 
-            this.$('.iapp-fever-nav-chart-wrap').empty();
-            var svg = d3.select(this.$('.iapp-fever-nav-chart-wrap')[0]).append("svg")
+            this.$('.iapp-fever-nav-chart-inner-wrap').empty();
+            var svg = d3.select(this.$('.iapp-fever-nav-chart-inner-wrap')[0]).append("svg")
                 .attr("width", dimensions.width + margin.left + margin.right)
                 .attr("height", dimensions.height + margin.top + margin.bottom)
                 .attr("class", 'iapp-fever-chart')
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            this.$chart = this.$('.iapp-fever-chart');
 
             
             svg.append("g")
@@ -175,6 +186,34 @@ define([
                 .attr("class", "line")
                 .attr("d", function(d) { return line(d.values); })
                 .style("stroke", function(d) { return _this.colors[d.name]; });
+            
+            this.drawEndBuffers(dimensions, margin);
+        },
+        drawEndBuffers: function(dimensions, margin) {
+            var svg = d3.select(this.$('.iapp-fever-chart')[0]);
+
+            var t = textures.lines()
+                .thicker()
+                .stroke("#E5E5E5");
+
+            svg.call(t);
+
+            svg.append("rect")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("height", dimensions.height + margin.bottom + margin.top)
+                .attr("width", margin.left)
+                .attr("class", "iapp-fever-end-buffer")
+                .attr("fill", t.url());
+
+            svg.append("rect")
+                .attr("x", dimensions.width + margin.right)
+                .attr("y", 0)
+                .attr("height", dimensions.height + margin.bottom + margin.top)
+                .attr("width", margin.right)
+                .attr("class", "iapp-fever-end-buffer")
+                .attr("fill", t.url());
+
         },
         parseData: function(rawData) {
             //Take in raw poll data and format into a candidate-based format
@@ -190,8 +229,8 @@ define([
         },
         getDimensions: function() {
             margin = this.getMargin();
-            var width = window.innerWidth >= 1200 ? (2320 - (margin.left + margin.right)) : ((window.innerWidth - 40) * 2  - (margin.left + margin.right));
-            var height = 180 - (margin.top + margin.bottom);
+            var width = document.body.clientWidth >= 1200 ? (2320 - (margin.left + margin.right)) : ((document.body.clientWidth - 40) * 2  - (margin.left + margin.right));
+            var height = 140 - (margin.top + margin.bottom);
             return {
                 height: height,
                 width: width
@@ -199,7 +238,7 @@ define([
         },
         getMargin: function() {
             return {
-                top: 30,
+                top: 10,
                 right: 50,
                 bottom: 10,
                 left: 50
@@ -214,7 +253,7 @@ define([
             var percStr = (percPos * 100) + "%";
             var pixelStr = "" + (percPos * this.containerWidth);
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
-            this.$chart.css({left: "-" + pixelStr});
+            this.$chart.css({left: "-" + pixelStr + "px"});
             this.setEntry(newDataIndex);
         },
         chartDrag: function(e, ui) {
@@ -236,13 +275,15 @@ define([
         setEntry: function(newIndex) {
             if (newIndex > this.data.length - 1) {
                 newIndex = this.data.length - 1;
+            } else if (newIndex < 0) {
+                newIndex = 0;
             }
             this.currentEntry = newIndex;
             _.throttle(_.bind(this.updateDate, this), 1000)();
             Backbone.trigger("poll:setCurrent", this.currentEntry);
         },
         getContainment: function() {
-            var winOffset = (window.innerWidth - this.containerWidth) / 2;
+            var winOffset = (document.body.clientWidth - this.containerWidth) / 2;
             var leftMin = -(this.containerWidth - winOffset);
             return [leftMin, 0, winOffset, 0];
         }

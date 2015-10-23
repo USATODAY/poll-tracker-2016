@@ -1,7 +1,9 @@
+$horizontal-padding: 20px;
+
 .iapp-fever-nav-wrap {
     background: $light-grey;
     bottom: 0;
-    padding: 20px;
+    padding: 30px $horizontal-padding;
     position: fixed;
     margin: 0 auto;
     max-width: 1200px;
@@ -10,16 +12,20 @@
 }
 
 .iapp-fever-nav-chart-wrap {
+    border-radius: 8px;
+    @include BoxShadowHelper(1);
     overflow-x: hidden;
+    overflow-y: hidden;
     position: relative;
     width: 100%;
 }
 
-.iapp-fever-chart {
+.iapp-fever-nav-chart-inner-wrap {
     background-color: white;
+    display: block;
     left: -100%;
     position: relative;
-    // transform: translate(-50%, 0);
+    width: 200%;
 }
 
 .candidate {
@@ -43,7 +49,7 @@
 .iapp-fever-nav-scrubber-wrap {
     bottom: 0;
     position: absolute;
-    right: 20px;
+    right: $horizontal-padding;
     top: 0;
     width: 100px;
     // transform: translate(50%, 0);
@@ -51,7 +57,7 @@
 
 .iapp-fever-nav-scrubber-top {
     background-color: $dark-grey;
-    border-radius: 8px;
+    border-radius: 5px;
     color: white;
     cursor: grab;
     height: 30px;
@@ -62,7 +68,31 @@
     position: relative;
     text-align: center;
     width: 100px;
+    z-index: 10;
     @extend .triangle;
+}
+
+
+.iapp-fever-nav-scrubber-line {
+    background: $medium-grey;
+    bottom: 0;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translate(-50%, 0);
+    width: 1px;
+    z-index: 9;
+}
+
+.iapp-fever-nav-scrubber-bottom {
+    background: $dark-grey;
+    border-radius: 5px;
+    bottom: 0;
+    height: 30px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
 }
 
 .ui-draggable-dragging .iapp-fever-nav-scrubber-top {

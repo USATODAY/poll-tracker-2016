@@ -1,6 +1,7 @@
 .iapp-party-select {
+    display: none;
     margin: 2em auto;
-    width: 460px;
+    width: 320px;
 }
 
 .iapp-party-select-button {
@@ -13,7 +14,7 @@
     margin: 0 10px;
     padding: 10px;
     text-align: center;
-    width: 200px;
+    width: 150px;
     @include BoxShadowHelper(1);
     &:hover {
         @include BoxShadowHelperInset(2);
@@ -21,15 +22,27 @@
 }
 
 .iapp-race-select-wrap {
+    background-color: $medium-grey;
+    border-radius: 5px;
+    color: white;
     font-family: "Futura Today Light" , Arial, sans-serif;
+    margin-bottom: 1em;
+    padding: 10px;
     position: relative;
+    width: 120px;
+    @include BoxShadowHelper(1);
 }
 
 .iapp-race-select {
+    bottom: 0;
+    display: block;
+    font-size: 2em;
     left: 0;
     opacity: 0;
     position: absolute;
-    top: 0;
+    right: 0;
+    top: 10px;
+    width: 100%;
 }
 
 .iapp-race-select-display {
