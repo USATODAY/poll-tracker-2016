@@ -1,5 +1,5 @@
 .iapp-party-select {
-    display: none;
+    // display: none;
     margin: 2em auto;
     width: 320px;
 }
@@ -11,10 +11,11 @@
     cursor: pointer;
     display: inline-block;
     font-family: "Futura Today Light" , Arial, sans-serif;
+    height: 40px;
     margin: 0 10px;
     padding: 10px;
     text-align: center;
-    width: 150px;
+    width: 130px;
     @include BoxShadowHelper(1);
     &:hover {
         @include BoxShadowHelperInset(2);
@@ -22,14 +23,15 @@
 }
 
 .iapp-race-select-wrap {
-    background-color: $medium-grey;
+    background-color: white;
     border-radius: 5px;
-    color: white;
-    font-family: "Futura Today Light" , Arial, sans-serif;
+    color: $medium-grey;
+    font-family: "Futura Today DemiBold" , Arial, sans-serif;
     margin-bottom: 1em;
     padding: 10px;
     position: relative;
-    width: 120px;
+    text-transform: uppercase;
+    width: 130px;
     @include BoxShadowHelper(1);
 }
 
@@ -37,6 +39,7 @@
     bottom: 0;
     display: block;
     font-size: 2em;
+    height: 40px;
     left: 0;
     opacity: 0;
     position: absolute;

@@ -3,18 +3,21 @@ define([
     "underscore",
     "backbone",
     "templates",
+    "config",
     "velocity"
-], function(jQuery, _, Backbone, templates, Velocity) {
+], function(jQuery, _, Backbone, templates, config, Velocity) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = opts.data;
+            this.max_percent = opts.max_percent;
             this.render();
         },
         className: "iapp-candidate-detail-wrap",
         template: templates["candidateDetailView.html"],
         render: function() {
-            this.$el.html(this.template({candidate: this.data}));
-            var offsetX = "-" + (100 - this.data.value) + "%";
+            this.$el.html(this.template({candidate: this.data, photo: this.getPhoto()}));
+            var adjustedPercent = this.getAdjustedPercent(this.data.value);
+            var offsetX = "-" + (100 - adjustedPercent) + "%";
             this.$el.velocity({
                 translateX: [offsetX, "-100%"],
                 duration: 2000,
@@ -39,6 +42,13 @@ define([
                 easing: "easeOutExpo"
             });
         },
+        getAdjustedPercent: function(value) {
+            return (value / this.max_percent) * 100;
+        },
+        getPhoto: function() {
+            var cleanName = this.data.name.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase();
+            return config.image_path + "candidates/" + cleanName + ".jpg";
+        }
 
     });
 });

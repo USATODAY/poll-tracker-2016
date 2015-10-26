@@ -1,10 +1,12 @@
 .iapp-candidate-detail-wrap {
-    margin: 20px 0;
+    margin: 15px 0;
     transform: translateX(-100%);
 }
 
 .iapp-candidate-bar {
-    height: 50px;
+    // border: solid 1px $medium-grey;
+    @include BoxShadowHelper(1);
+    height: 40px;
     width: 100%;
 }
 
@@ -13,5 +15,23 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(110%, -50%);
+    transform: translate(150%, -50%);
+}
+
+.iapp-candidate-photo {
+    border-radius: 30px;
+    @include BoxShadowHelper(2);
+    height: 60px;
+    overflow: hidden;
+    position: absolute;
+    right: -20px;
+    top: -10px;
+    width: 60px;
+    img {
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
 }

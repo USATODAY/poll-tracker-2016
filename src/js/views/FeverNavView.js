@@ -12,6 +12,7 @@ define([
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.redraw);
+            console.log(opts.data);
             this.data = this.parseData(opts.data);
             var colors = {};
             _.each(opts.data[0].candidate, function(candidate) {

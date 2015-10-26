@@ -9,6 +9,7 @@ define([
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = opts.data;
+            this.max_percent = 60;
             this.render();
         },
         el: '.iapp-detail-wrap',
@@ -21,15 +22,14 @@ define([
             _.each(this.data.candidate, function(candidateData, i) {
                 //create new candidate detail view for each candidate in this data entry
                 candidateData.color = config.colors[i];
-                var candidateDetailView = new CandidateDetailView({data: candidateData});
-                _this.$el.append(candidateDetailView.el);
+                var candidateDetailView = new CandidateDetailView({data: candidateData, max_percent:_this.max_percent});
+                _this.$('.iapp-detail-inner').append(candidateDetailView.el);
                 //save candidate detail view to detail view's array
                 _this.candidateDetailViews.push(candidateDetailView);
             });
             return this;
         },
         update: function(newData) {
-            console.log("update");
             var _this = this;
             this.data = newData;
             _.each(this.candidateDetailViews, function(candidateDetailView) {
