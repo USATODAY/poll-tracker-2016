@@ -1,5 +1,5 @@
 .iapp-candidate-detail-wrap {
-    margin: 15px 0;
+    margin: 20px 0;
     transform: translateX(-100%);
 }
 
@@ -11,11 +11,12 @@
 }
 
 .iapp-candidate-info {
-    font-family: "Futura Today Light", Arial, sans-serif;
+    font-family: "Futura Today DemiBold", Arial, sans-serif;
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(150%, -50%);
+    transform: translate(130px, -50%);
+    width: 100px;
 }
 
 .iapp-candidate-photo {
