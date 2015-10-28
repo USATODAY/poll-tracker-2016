@@ -11,8 +11,7 @@ define([
 ], function(jQuery, _, Backbone, d3, textures, humanize, templates) {
     return Backbone.View.extend({
         initialize: function(opts) {
-            this.listenTo(Backbone, "window:resize", this.redraw);
-            console.log(opts.data);
+            this.listenTo(Backbone, "window:resize", this.onResize);
             this.data = this.parseData(opts.data);
             var colors = {};
             _.each(opts.data[0].candidate, function(candidate) {
@@ -251,7 +250,6 @@ define([
             this.$scrubber.stop();
             var range = this.containerWidth - 100;
             var percPos = (ui.position.left - 20) / range;
-            var percStr = (percPos * 100) + "%";
             var pixelStr = "" + (percPos * this.containerWidth);
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
             this.$chart.css({left: "-" + pixelStr + "px"});
@@ -262,7 +260,7 @@ define([
             this.$chart.stop();
             this.$scrubber.stop();
             var range = this.containerWidth;
-            percPos = Math.abs(ui.position.left) / range;
+            var percPos = Math.abs(ui.position.left) / range;
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
             var newScrubberPos = (range - 100) * percPos + 20;
             this.$scrubber.css({left: newScrubberPos});
@@ -287,6 +285,23 @@ define([
             var winOffset = (document.body.clientWidth - this.containerWidth) / 2;
             var leftMin = -(this.containerWidth - winOffset);
             return [leftMin, 0, winOffset, 0];
+        },
+        onResize: function() {
+            this.redraw();
+            this.updateScrubberPosition();
+            this.updateChartPosition();
+        },
+        updateScrubberPosition: function() {
+            var range = this.containerWidth - 100;
+            var percPos = 1 - (this.currentEntry/(this.data.length-1));
+            var newScrubberPos = range * percPos + 20;
+            this.$scrubber.css({left: newScrubberPos});
+        },
+        updateChartPosition: function() {
+            var range = this.containerWidth - 100;
+            var percPos = 1 - (this.currentEntry/(this.data.length-1));
+            var pixelStr = "" + (percPos * this.containerWidth);
+            this.$chart.css({left: "-" + pixelStr + "px"});
         }
     });
 });
