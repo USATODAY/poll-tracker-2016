@@ -4,14 +4,34 @@
     margin-bottom: 184px;
     overflow-x: hidden;
     padding: 2em 50px;
+    position: relative;
     @include BoxShadowHelper(1);
 }
 
 .iapp-detail-inner {
     position: relative;
+    z-index: 2;
 }
 
 .iapp-detail-wrap {
     // background-color: $medium-grey;
     // padding: 30px 20px;
+}
+
+.iapp-detail-ticks-chart {
+    // background: $light-grey;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.iapp-detail-ticks-chart .tick line{
+    fill: $light-grey;
+    stroke: $light-grey;
+}
+
+.iapp-detail-ticks-chart .tick text {
+    fill: $medium-grey;
+    font-family: "Futura Today Normal", Arial, sans-serif;
 }
