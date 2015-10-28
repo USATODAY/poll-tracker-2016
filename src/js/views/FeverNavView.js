@@ -6,17 +6,17 @@ define([
     "textures",
     "humanize",
     "templates",
+    "config",
     "jquery_ui",
     "jquery_ui_touch_punch"
-], function(jQuery, _, Backbone, d3, textures, humanize, templates) {
+], function(jQuery, _, Backbone, d3, textures, humanize, templates, config) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.onResize);
             this.data = this.parseData(opts.data);
+            this.party = opts.party;
+            console.log(opts);
             var colors = {};
-            _.each(opts.data[0].candidate, function(candidate) {
-                colors[candidate.name] = candidate.color;
-            });
             this.colors = colors;
             this.currentEntry = 0;
             this.$chart = null;
@@ -71,13 +71,14 @@ define([
             
 
             color.domain(d3.keys(data[data.length - 1]).filter(function(key) { return key !== "date"; }));
-            var candidates = this.candidates = d3.keys(data[0]).filter(function(k) {return k !== "date"; }).map(function(candidate) {
+            var candidates = this.candidates = config.CANDIDATES[this.party].map(function(candidateObj) {
                 return {
-                    name: candidate,
+                    name: candidateObj.last_name,
+                    color: candidateObj.color,
                     values: data.map(function(d) {
                         return {
                             date: d.date,
-                            value: d[candidate] ? d[candidate] : 0
+                            value: d[candidateObj.last_name] ? d[candidateObj.last_name] : 0
                         };
                     })
                 };
@@ -125,7 +126,7 @@ define([
             candidate.append("path")
                 .attr("class", "line")
                 .attr("d", function(d) { return line(d.values); })
-                .style("stroke", function(d) { return _this.colors[d.name]; });
+                .style("stroke", function(d) { return d.color; });
 
             this.drawEndBuffers(dimensions, margin);
             

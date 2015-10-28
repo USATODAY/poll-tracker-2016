@@ -5,7 +5,8 @@ define([
     "templates"
 ], function(jQuery, _, Backbone, templates) {
     return Backbone.View.extend({
-        initialize: function() {
+        initialize: function(opts) {
+            console.log(opts.data);
             this.render();
         },
         el: '.iapp-control-wrap',

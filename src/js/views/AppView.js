@@ -20,20 +20,20 @@ define([
         template: templates["AppView.html"],
         render: function() {
             var _this = this;
-            this.setCollection(new CandidateCollection(this.data.rcp_avg[0].candidate));
+            // this.setCollection(new CandidateCollection(this.data.rcp_avg[0].candidate));
             this.$('.iapp-loader-wrap').hide();
-            this.$el.append(this.template());
-            this.controlsView = new ControlsView();
-            this.detailView = new DetailView({data: this.data.rcp_avg[0], collection: this.currentCollection});
-            this.feverNavView = new FeverNavView({data: this.data.rcp_avg});
+            this.$el.html(this.template());
+            this.controlsView = new ControlsView({data: this.menuData.races[this.party]});
+            this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
+            this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party});
             return this;
         },
         getData: function(dataURL) {
             var _this = this;
             dataURL = utils.getDataURL(dataURL);
             jQuery.getJSON(dataURL, function(data) {
-                _this.data = data;
-                _this.render();
+                _this.menuData = data;
+                _this.setParty('republican');
             });
         },
         updateDetails: function(newIndex) {
@@ -47,6 +47,21 @@ define([
         setCollection: function(newCollection) {
             this.currentCollection = newCollection;
             this.currentCollection.setColors();
+        },
+        setParty: function(party) {
+            //takes party name, save to view and adds color values to each candidate
+            var _this = this;
+            this.party = party;
+            _.each(config.CANDIDATES[party], function(candidate, i) {
+                candidate.color = config.colors[i];
+            });
+            console.log(this.menuData.races[this.party][0].url);
+            //change this to dynamic URL later
+            var raceDataURL = utils.getDataURL("http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/data/sample.json");
+            jQuery.getJSON(raceDataURL, function(data) {
+                _this.data = data;
+                _this.render();
+            });
         }
     });
 });

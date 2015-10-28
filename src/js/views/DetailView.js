@@ -10,7 +10,9 @@ define([
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.drawTicks);
+            this.currentParty = opts.party;
             this.data = opts.data;
+            this.candidates = config.CANDIDATES[this.currentParty];
             this.max_percent = 60;
             this.render();
         },
@@ -20,11 +22,14 @@ define([
         render: function() {
             var _this = this;
             this.$el.html(this.template());
+
+            //create new array of candidates, joining our predifined candidates from config, with the current data
+            var candidateData = this.joinCandidateData();
+
             // loop through each candidate entry in the views data
-            _.each(this.data.candidate, function(candidateData, i) {
+            _.each(candidateData, function(candidate, i) {
                 //create new candidate detail view for each candidate in this data entry
-                candidateData.color = config.colors[i];
-                var candidateDetailView = new CandidateDetailView({data: candidateData, max_percent:_this.max_percent});
+                var candidateDetailView = new CandidateDetailView({data: candidate, max_percent:_this.max_percent});
                 _this.$('.iapp-detail-inner').append(candidateDetailView.el);
                 //save candidate detail view to detail view's array
                 _this.candidateDetailViews.push(candidateDetailView);
@@ -82,6 +87,22 @@ define([
                 }
                 
             });
+        },
+        joinCandidateData: function() {
+            var _this = this;
+            return _.sortBy(_.map(this.candidates, function(candidateObj) {
+                return _this.lookupCandidate(candidateObj);
+            }), function(candidateObj) {
+                return candidateObj.value ? parseFloat(candidateObj.value) : 0;
+            }).reverse();
+        },
+        lookupCandidate: function(candidateObj) {
+            var candidateData = _.findWhere(this.data.candidate, {name: candidateObj.last_name});
+            if (candidateData) {
+                return _.extend(candidateData, candidateObj);
+            } else {
+                return _.extend(candidateObj, {value: null, name: candidateObj.last_name});
+            }
         }
     });
 });
