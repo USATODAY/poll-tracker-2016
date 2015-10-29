@@ -13,9 +13,10 @@
         </label>
     </div>
 <div class="iapp-race-select-wrap">
-    <span class="iapp-race-select-display">National &#9660;</span>
+    <span class="iapp-race-select-display"> <span class="iapp-race-select-display-location">National </span> &#9660;</span>
     <select id="race-select" class="iapp-race-select" name="race">
-        <option value="national">National</option>
-        <option value="iowa">Iowa</option>
+        <% _.each(states, function(state) { %>
+        <option value="<%print(getFullState(state.state))%>"><% print(getFullState(state.state))%></option>
+        <%}) %>
     </select>
 </div>

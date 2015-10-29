@@ -18,6 +18,10 @@ define([
                 }
                 return dataURL;
             },
+            getFullStateName: function(stateAbbr) {
+                var stateObj = _.findWhere(config.STATES, {'stateAbbr': stateAbbr});
+                return stateObj.name;
+            }
             
         };
 });

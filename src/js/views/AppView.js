@@ -15,6 +15,8 @@ define([
             this.updateDetails = _.throttle(this.updateDetails, 1000);
             this.getData(config.dataURL);
             this.listenTo(Backbone, "poll:setCurrent", this.updateDetails);
+            this.listenTo(Backbone, "state:setCurrent", this.onStateChange);
+            console.log(utils.getFullStateName('MD'));
         },
         el: '.iapp-app-wrap',
         template: templates["AppView.html"],
@@ -62,6 +64,9 @@ define([
                 _this.data = data;
                 _this.render();
             });
+        },
+        onStateChange: function(stateName) {
+            console.log("states set to: " + stateName);
         }
     });
 });

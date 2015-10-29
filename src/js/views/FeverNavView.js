@@ -186,7 +186,7 @@ define([
             candidate.append("path")
                 .attr("class", "line")
                 .attr("d", function(d) { return line(d.values); })
-                .style("stroke", function(d) { return _this.colors[d.name]; });
+                .style("stroke", function(d) { return d.color; });
             
             this.drawEndBuffers(dimensions, margin);
         },

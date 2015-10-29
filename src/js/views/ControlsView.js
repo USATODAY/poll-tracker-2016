@@ -2,18 +2,27 @@ define([
     "jquery",
     "underscore",
     "backbone",
-    "templates"
-], function(jQuery, _, Backbone, templates) {
+    "templates",
+    "projUtils"
+], function(jQuery, _, Backbone, templates, utils) {
     return Backbone.View.extend({
         initialize: function(opts) {
-            console.log(opts.data);
+            this.data = opts.data;
             this.render();
         },
         el: '.iapp-control-wrap',
         template: templates["ControlsView.html"],
+        events: {
+            "change #race-select": "onRaceSelectChange"
+        },
         render: function() {
-            this.$el.html(this.template());
+            this.$el.html(this.template({states: this.data, getFullState: utils.getFullStateName}));
             return this;
+        },
+        onRaceSelectChange: function(e) {
+            var state = e.target.value;
+            this.$('.iapp-race-select-display-location').text(state);
+            Backbone.trigger("state:setCurrent", state);
         }
     });
 });
