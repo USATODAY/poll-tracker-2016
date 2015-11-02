@@ -57,7 +57,6 @@ define([
         },
         getPhoto: function() {
             var cleanName = this.data.name.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~()\']/g,"").toLowerCase();
-            console.log(cleanName);
             return config.image_path + "headshots/" + cleanName + ".png";
         }
 

@@ -16,7 +16,10 @@ define(
 
     function addGlobalListeners() {
         jQuery(window).on('resize', function(e) {
-            Backbone.trigger("window:resize");
+            Backbone.trigger("window:resize", e);
+        });
+        jQuery(window).on('scroll', function(e) {
+            Backbone.trigger("window:scroll", e);
         });
     }
 

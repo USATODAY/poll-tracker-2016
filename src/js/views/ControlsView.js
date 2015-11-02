@@ -29,10 +29,7 @@ define([
         },
         onPartyChange: function(e) {
             var newParty = e.target.value;
-            console.log(newParty);
             Backbone.trigger("party:setCurrent", newParty);
-            // Backbone.trigger("party:setCurrent", newParty);
-            console.log("test");
         }
     });
 });

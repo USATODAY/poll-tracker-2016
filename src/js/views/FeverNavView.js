@@ -13,9 +13,9 @@ define([
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.onResize);
+            // this.listenTo(Backbone, "window:scroll", this.positionElement);
             this.data = this.parseData(opts.data);
             this.party = opts.party;
-            console.log(opts);
             var colors = {};
             this.colors = colors;
             this.currentEntry = 0;
@@ -40,6 +40,15 @@ define([
             });
             
             this.drawChart(this.data);
+            // this.positionElement();
+        },
+        positionElement: function(e) {
+            var windowScrollTop = jQuery(window).scrollTop();
+            var elHeight = this.$el.outerHeight();
+            var windowHeight = window.innerHeight;
+            var parentOffset = this.$el.parent().offset().top;
+            var topValue = windowHeight + windowScrollTop - elHeight - parentOffset;
+            this.$el.css({"top": topValue + "px"});
         },
         drawChart: function(data) {
             var _this = this;
@@ -288,6 +297,7 @@ define([
             return [leftMin, 0, winOffset, 0];
         },
         onResize: function() {
+            // this.positionElement();
             this.redraw();
             this.updateScrubberPosition();
             this.updateChartPosition();
