@@ -13,7 +13,7 @@ define([
             this.currentParty = opts.party;
             this.data = opts.data;
             this.candidates = config.CANDIDATES[this.currentParty];
-            this.max_percent = 60;
+            this.max_percent = 100;
             this.render();
         },
         el: '.iapp-detail-wrap',
@@ -59,7 +59,7 @@ define([
                 .tickSize((chartHeight - (margins.top + margins.bottom)), 0, 0)
                 .tickPadding(5)
                 .tickFormat(function(d) {return d + "%";})
-                .ticks((this.max_percent/10) + 1);
+                .ticks((this.max_percent/20) + 1);
 
             var chartElement = d3.select(this.el).append('svg')
                 .attr("height", chartHeight)
