@@ -14,20 +14,44 @@ define([
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
             this.getData(config.dataURL);
-            this.currentState = "US";
             this.listenTo(Backbone, "poll:setCurrent", this.updateDetails);
             this.listenTo(Backbone, "state:setCurrent", this.onStateChange);
+            this.listenTo(Backbone, "party:setCurrent", this.setParty);
         },
         el: '.iapp-app-wrap',
         template: templates["AppView.html"],
         render: function() {
             var _this = this;
             // this.setCollection(new CandidateCollection(this.data.rcp_avg[0].candidate));
-            this.$('.iapp-loader-wrap').hide();
-            this.$el.html(this.template());
-            this.controlsView = new ControlsView({data: this.menuData.races[this.party]});
+
+            //check to see if subview exist and remove them
+            if (this.controlsView) {
+                this.controlsView.remove();
+            }
+            if (this.detailView) {
+                this.detailView.remove();
+            }
+            if (this.feverNavView) {
+                this.feverNavView.remove();
+            }
+            this.$el.append(this.template());
+            this.controlsView = new ControlsView({data: this.menuData.races[this.party], party: this.party});
             this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
             this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party});
+            this.$('.iapp-loader-wrap').hide();
+            return this;
+        },
+        renderNewState: function() {
+            var _this = this;
+            if (this.detailView) {
+                this.detailView.stopListening();
+            }
+            if (this.feverNavView) {
+                this.feverNavView.stopListening();
+            }
+            this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
+            this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party});
+            this.$('.iapp-loader-wrap').hide();
             return this;
         },
         getData: function(dataURL) {
@@ -51,22 +75,52 @@ define([
             this.currentCollection.setColors();
         },
         setParty: function(party) {
-            //takes party name, save to view and adds color values to each candidate
+            /*
+             * takes party name, save to view and adds color values to each candidate
+             */
+            this.$('.iapp-loader-wrap').show();
             var _this = this;
+            //save party variable to view
             this.party = party;
+
+            //set state to national
+            this.currentState = "US";
+
+            // make sure parties candidates have color values assigned
             _.each(config.CANDIDATES[party], function(candidate, i) {
                 candidate.color = config.colors[i];
             });
-            console.log(this.menuData.races[this.party][0].url);
-            //change this to dynamic URL later
-            var raceDataURL = utils.getDataURL("http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/data/sample.json");
+            //store menu entry for current party and state
+            var menuEntry = _.findWhere(this.menuData.races[party], {"state": this.currentState});
+            //store url from menu data
+            var raceDataURL = utils.getDataURL(menuEntry.url);
+            
+
+            //get data for current party and state
             jQuery.getJSON(raceDataURL, function(data) {
                 _this.data = data;
                 _this.render();
             });
         },
         onStateChange: function(stateName) {
-            console.log("states set to: " + stateName);
+            this.setState(stateName);
+        },
+        setState: function(state) {
+            var _this = this;
+            this.currentState = state;
+            this.$('.iapp-loader-wrap').show();
+            
+            //store menu entry for current party and state
+            var menuEntry = _.findWhere(this.menuData.races[this.party], {"state": this.currentState});
+            //store url from menu data
+            var raceDataURL = utils.getDataURL(menuEntry.url);
+            //get data for current party and state
+            jQuery.getJSON(raceDataURL, function(data) {
+                _this.data = data;
+                // _this.render();
+                _this.renderNewState();
+            });
+
         }
     });
 });

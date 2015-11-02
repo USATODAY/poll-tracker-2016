@@ -1,12 +1,12 @@
 <div class="switch iapp-party-select">
         <label>
-            <input type="radio" class='iapp-last-week-radio' name='last-week' checked>
+            <input type="radio" class='iapp-party-radio' name='party' value='republican'>
             <div class="iapp-toggle-name">
                 Republican
             </div>
         </label>
         <label>
-            <input type="radio" class='iapp-last-week-radio' name='last-week'>
+            <input type="radio" class='iapp-party-radio' name='party' value='democrat'>
             <div class="iapp-toggle-name">
                 Democrat
             </div>
@@ -16,7 +16,7 @@
     <span class="iapp-race-select-display"> <span class="iapp-race-select-display-location">National </span> &#9660;</span>
     <select id="race-select" class="iapp-race-select" name="race">
         <% _.each(states, function(state) { %>
-        <option value="<%print(getFullState(state.state))%>"><% print(getFullState(state.state))%></option>
+        <option value="<%= state.state %>"><% print(getFullState(state.state))%></option>
         <%}) %>
     </select>
 </div>

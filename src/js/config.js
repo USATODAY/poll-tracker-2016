@@ -2,7 +2,7 @@ define([
    "jquery",
 ], function(jQuery) {
     //set project data URL here
-    var dataURL = "http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/data/main_menu.json";
+    var dataURL = "http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/data/pt_main.json";
     //set project image path here
     var imagePath = "http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/";
 

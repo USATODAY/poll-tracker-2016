@@ -56,7 +56,8 @@ define([
             return (value / this.max_percent) * 100;
         },
         getPhoto: function() {
-            var cleanName = this.data.name.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase();
+            var cleanName = this.data.name.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~()\']/g,"").toLowerCase();
+            console.log(cleanName);
             return config.image_path + "headshots/" + cleanName + ".png";
         }
 
