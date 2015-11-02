@@ -8,6 +8,10 @@ header * {
     box-sizing: content-box;
 }
 
+footer {
+  display: none;
+}
+
 div.non-article-content{
   padding: 0 !important;
 }
