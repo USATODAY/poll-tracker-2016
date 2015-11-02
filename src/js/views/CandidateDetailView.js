@@ -37,8 +37,9 @@ define([
             this.data = newData;
             var offsetX;
             if (this.data.value) {
+                var adjustedPercent = this.getAdjustedPercent(this.data.value);
                 this.$el.removeClass('iapp-candidate-inactive');
-                offsetX = "-" + (100 - this.data.value) + "%";
+                offsetX = "-" + (100 - adjustedPercent) + "%";
                 this.$('.iapp-candidate-percent').text(this.data.value + "%");
             } else {
                 offsetX = "-100%";

@@ -241,6 +241,9 @@ define([
             margin = this.getMargin();
             var width = document.body.clientWidth >= 1200 ? (2320 - (margin.left + margin.right)) : ((document.body.clientWidth - 40) * 2  - (margin.left + margin.right));
             var height = 140 - (margin.top + margin.bottom);
+            if (window.innerWidth < 600) {
+                height = 100 - (margin.top + margin.bottom);
+            }
             return {
                 height: height,
                 width: width
