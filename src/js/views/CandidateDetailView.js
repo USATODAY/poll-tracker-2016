@@ -57,7 +57,7 @@ define([
         },
         getPhoto: function() {
             var cleanName = this.data.name.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase();
-            return config.image_path + "candidates/" + cleanName + ".jpg";
+            return config.image_path + "headshots/" + cleanName + ".png";
         }
 
     });

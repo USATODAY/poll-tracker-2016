@@ -20,19 +20,21 @@
 }
 
 .iapp-candidate-photo {
-    border-radius: 30px;
-    @include BoxShadowHelper(2);
-    height: 60px;
+    // border-radius: 30px;
+    // @include BoxShadowHelper(2);
+    bottom: 0;
+    // height: 55px;
+    // filter: drop-shadow(5px 5px 20px rgba(0, 0, 0, 0.25));
     overflow: hidden;
     position: absolute;
-    right: -20px;
-    top: -10px;
-    width: 60px;
+    right: -40px;
+    // top: 0;
+    width: 90px;
     img {
         display: block;
-        left: 0;
-        position: absolute;
-        top: 0;
+        // left: 0;
+        // position: absolute;
+        // top: 0;
         width: 100%;
     }
 }

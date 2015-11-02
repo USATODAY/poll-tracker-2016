@@ -14,9 +14,9 @@ define([
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
             this.getData(config.dataURL);
+            this.currentState = "US";
             this.listenTo(Backbone, "poll:setCurrent", this.updateDetails);
             this.listenTo(Backbone, "state:setCurrent", this.onStateChange);
-            console.log(utils.getFullStateName('MD'));
         },
         el: '.iapp-app-wrap',
         template: templates["AppView.html"],
