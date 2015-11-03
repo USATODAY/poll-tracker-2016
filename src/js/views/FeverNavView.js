@@ -275,7 +275,6 @@ define([
             var $draggie = $(e.target).data('draggabilly');
             var leftOffset = Math.floor($draggie.position.x);
             var percPos = leftOffset / this.containerWidth;
-            console.log(percPos);
             var newDataIndex = Math.floor((percPos) * this.data.length);
             var newScrubberPos = (range - 100) * (1- percPos) + 20;
             this.$scrubber.css({left: newScrubberPos});
@@ -315,9 +314,9 @@ define([
         },
         updateChartPosition: function() {
             var range = this.containerWidth - 100;
-            var percPos = 1 - (this.currentEntry/(this.data.length-1));
+            var percPos = (this.currentEntry/(this.data.length-1));
             var pixelStr = "" + (percPos * this.containerWidth);
-            this.$chart.css({left: "-" + pixelStr + "px"});
+            this.$chart.css({left: pixelStr + "px"});
         }
     });
 });
