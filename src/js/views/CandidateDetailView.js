@@ -9,6 +9,7 @@ define([
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = opts.data;
+            console.log(this.data);
             this.max_percent = opts.max_percent;
             this.render();
         },
@@ -27,9 +28,11 @@ define([
                 });
             } else {
                 offsetX = "-100%";
-                this.$el.addClass('iapp-candidate-inactive');
                 this.$('.iapp-candidate-percent').text("");
+            }
 
+            if (!this.data.active) {
+                this.$el.addClass('iapp-candidate-inactive');
             }
             return this;
         },
@@ -38,12 +41,10 @@ define([
             var offsetX;
             if (this.data.value) {
                 var adjustedPercent = this.getAdjustedPercent(this.data.value);
-                this.$el.removeClass('iapp-candidate-inactive');
                 offsetX = "-" + (100 - adjustedPercent) + "%";
                 this.$('.iapp-candidate-percent').text(this.data.value + "%");
             } else {
                 offsetX = "-100%";
-                this.$el.addClass('iapp-candidate-inactive');
                 this.$('.iapp-candidate-percent').text("");
             }
 
