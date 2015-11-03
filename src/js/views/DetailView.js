@@ -93,7 +93,8 @@ define([
             return _.sortBy(_.map(this.candidates, function(candidateObj) {
                 return _this.lookupCandidate(candidateObj);
             }), function(candidateObj) {
-                return candidateObj.value ? parseFloat(candidateObj.value) : 0;
+                console.log(candidateObj.value !== "");
+                return candidateObj.value !== "" ? parseFloat(candidateObj.value) : -1;
             }).reverse();
         },
         lookupCandidate: function(candidateObj) {
