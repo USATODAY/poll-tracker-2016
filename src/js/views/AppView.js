@@ -6,10 +6,12 @@ define([
     "projUtils",
     "config",
     "collections/CandidateCollection",
+    "models/ShareModel",
     "views/ControlsView",
     "views/DetailView",
-    "views/FeverNavView"
-], function(jQuery, _, Backbone, templates, utils, config, CandidateCollection, ControlsView, DetailView, FeverNavView) {
+    "views/FeverNavView",
+    "views/ShareView"
+], function(jQuery, _, Backbone, templates, utils, config, CandidateCollection, ShareModel, ControlsView, DetailView, FeverNavView, ShareView) {
     return Backbone.View.extend({
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
@@ -22,7 +24,6 @@ define([
         template: templates["AppView.html"],
         render: function() {
             var _this = this;
-            // this.setCollection(new CandidateCollection(this.data.rcp_avg[0].candidate));
 
             //check to see if subview exist and remove them
             if (this.controlsView) {

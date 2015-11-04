@@ -3,8 +3,10 @@ define([
     "underscore",
     "backbone",
     "templates",
-    "projUtils"
-], function(jQuery, _, Backbone, templates, utils) {
+    "projUtils",
+    "views/ShareView",
+    "models/ShareModel"
+], function(jQuery, _, Backbone, templates, utils, ShareView, ShareModel) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = opts.data;
@@ -19,6 +21,8 @@ define([
         },
         render: function() {
             this.$el.html(this.template({states: this.data, getFullState: utils.getFullStateName}));
+            this.shareModel = new ShareModel();
+            this.shareView = new ShareView({model: this.shareModel});
             this.$('input[type=radio][value='+ this.party + ']').prop('checked', true);
             return this;
         },

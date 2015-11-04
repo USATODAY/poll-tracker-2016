@@ -7,7 +7,7 @@ define([
     var imagePath = "http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/";
 
     //set project default share language here
-    var defaultShareLanguage = null;
+    var defaultShareLanguage = "USA TODAY's 2016 Poll Tracker";
     var defaultShareImage = null;
 
     var isMobile, fb_app_id;

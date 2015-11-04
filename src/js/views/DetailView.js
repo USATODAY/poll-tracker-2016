@@ -94,7 +94,13 @@ define([
                 return _this.lookupCandidate(candidateObj);
             }), function(candidateObj) {
                 console.log(candidateObj.value !== "");
-                return candidateObj.value !== "" ? parseFloat(candidateObj.value) : -1;
+                var val;
+                if (candidateObj.value === "" || candidateObj.value === null) {
+                    val = -1;
+                } else {
+                    val = parseFloat(candidateObj.value);
+                }
+                return val;
             }).reverse();
         },
         lookupCandidate: function(candidateObj) {

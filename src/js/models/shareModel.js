@@ -3,14 +3,14 @@ define(
     'jquery',
     'underscore',
     'backbone',
-    'models/config'
+    'config'
   ],
   function(jQuery, _, Backbone, config){
 
     return Backbone.Model.extend( {
         defaults: {
-            'default_share_language': '',
-            'stillimage': 'http://www.gannett-cdn.com/experiments/usatoday/2015/03/sunday-shows/img/fb-post.jpg'            
+            'default_share_language': config.defaultShareLanguage,
+            'stillimage': 'http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/fb-post.jpg'            
         },
 
         initialize: function() {
@@ -20,7 +20,7 @@ define(
                 'fbShare': this.createFbShareURL(baseURL),
                 'twitterShare': this.createTwitterShareURL(baseURL),
                 'encodedShare': encodeURIComponent(this.get('default_share_language')),
-                'fb_id': config.facebook.app_id,
+                'fb_id': config.facebook_app_id,
                 'fb_redirect': 'http://' + window.location.hostname + '/pages/interactives/fb-share/',
                 'email_link': this.createEmailLink(baseURL)
                 

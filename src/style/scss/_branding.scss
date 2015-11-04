@@ -11,6 +11,9 @@
     padding: 0 .33em;
     text-align: center;
     text-transform: uppercase;
+    @media (max-width: $medium-break) {
+        font-size: 1.8em;
+    }
 }
 
 .iapp-title-bold {
@@ -22,5 +25,16 @@
 }
 
 .iapp-election-logo {
+    display: block;
+    margin: 0 auto;
     width: 100%;
+    @media (max-width: $medium-break) {
+        width: 60%;
+    }
+}
+
+.iapp-rcp-logo {
+    @media (maxd-width: $medium-break) {
+        width: 80px;
+    }
 }
