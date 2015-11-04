@@ -2,16 +2,19 @@ define(
   [
     'jquery',
     'underscore',
-    'templates',
+    'backbone',
+    'draggabilly',
     'views/AppView'
   ],
-  function(jQuery, _, templates, AppView){
+  function(jQuery, _, Backbone, Draggabilly, AppView){
     var app = app || {};
 
     app.init = function() {
-        addGlobalListeners();
-        var appView = new AppView();
-        // appView.render();
+        require(['jquery-bridget/jquery.bridget'], function() {
+            $.bridget( 'draggabilly', Draggabilly );
+            addGlobalListeners();
+            var appView = new AppView();
+        });
     };
 
     function addGlobalListeners() {

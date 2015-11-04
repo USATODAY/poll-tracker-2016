@@ -12,6 +12,12 @@ $horizontal-padding: 20px;
     @include BoxShadowHelper(2);
 }
 
+.iapp-fever-nav-container {
+    left: -100%;
+    position: relative;
+    width: 300%;
+}
+
 .iapp-fever-nav-chart-wrap {
     border-radius: 8px;
     @include BoxShadowHelper(1);
@@ -24,9 +30,9 @@ $horizontal-padding: 20px;
 .iapp-fever-nav-chart-inner-wrap {
     background-color: white;
     display: block;
-    left: -100%;
+    left: 0;
     position: relative;
-    width: 200%;
+    width: 66.6666666666667%;
 }
 
 .candidate {

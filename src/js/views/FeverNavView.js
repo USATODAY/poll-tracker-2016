@@ -7,9 +7,8 @@ define([
     "humanize",
     "templates",
     "config",
-    "jquery_ui",
-    "jquery_ui_touch_punch"
-], function(jQuery, _, Backbone, d3, textures, humanize, templates, config) {
+    "draggabilly"
+], function(jQuery, _, Backbone, d3, textures, humanize, templates, config, Draggabilly) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.onResize);
@@ -33,13 +32,14 @@ define([
             this.containerWidth = this.$(".iapp-fever-nav-chart-wrap").width();
             this.updateDate();
             this.$scrubber = this.$('.iapp-fever-nav-scrubber-wrap');
-            this.$scrubber.draggable({
+            this.$scrubber.draggabilly({
                 axis: "x",
-                containment: "parent",
-                drag: _.bind(_this.scrubDrag, _this)
+                containment: '.iapp-fever-nav-scrubber-container'
             });
+            this.$scrubber.on('dragMove', _.bind(this.scrubDrag, this));
             
             this.drawChart(this.data);
+            this.updateScrubberPosition();
             // this.positionElement();
         },
         positionElement: function(e) {
@@ -140,11 +140,11 @@ define([
             this.drawEndBuffers(dimensions, margin);
             
             this.$chart = this.$('.iapp-fever-nav-chart-inner-wrap');
-            this.$chart.draggable({
+            this.$chart.draggabilly({
                 axis: "x",
-                containment: this.getContainment(),
-                drag: _.bind(_this.chartDrag, _this),
+                containment: '.iapp-fever-nav-container'
             });
+            this.$chart.on('dragMove', _.bind(this.chartDrag, this));
 
 
         },
@@ -257,25 +257,26 @@ define([
                 left: 50
             };
         },
-        scrubDrag: function(e, ui) {
+        scrubDrag: function(e) {
             //runs when scrubber is dragged
-            this.$chart.stop();
-            this.$scrubber.stop();
             var range = this.containerWidth - 100;
-            var percPos = (ui.position.left - 20) / range;
-            var pixelStr = "" + (percPos * this.containerWidth);
+            var $draggie = $(e.target).data('draggabilly');
+            var leftOffset = $draggie.position.x - 20;
+            var percPos = leftOffset / range;
+            // console.log(percPos);
+            var pixelStr = "" + ((1 - percPos) * (this.containerWidth));
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
-            this.$chart.css({left: "-" + pixelStr + "px"});
+            this.$chart.css({left: "" + pixelStr + "px"});
             this.setEntry(newDataIndex);
         },
-        chartDrag: function(e, ui) {
+        chartDrag: function(e) {
             //runs when chart is dragged
-            this.$chart.stop();
-            this.$scrubber.stop();
             var range = this.containerWidth;
-            var percPos = Math.abs(ui.position.left) / range;
-            var newDataIndex = Math.floor((1 - percPos) * this.data.length);
-            var newScrubberPos = (range - 100) * percPos + 20;
+            var $draggie = $(e.target).data('draggabilly');
+            var leftOffset = Math.floor($draggie.position.x);
+            var percPos = leftOffset / this.containerWidth;
+            var newDataIndex = Math.floor((percPos) * this.data.length);
+            var newScrubberPos = (range - 100) * (1- percPos) + 20;
             this.$scrubber.css({left: newScrubberPos});
             this.setEntry(newDataIndex);
         },
@@ -313,9 +314,9 @@ define([
         },
         updateChartPosition: function() {
             var range = this.containerWidth - 100;
-            var percPos = 1 - (this.currentEntry/(this.data.length-1));
+            var percPos = (this.currentEntry/(this.data.length-1));
             var pixelStr = "" + (percPos * this.containerWidth);
-            this.$chart.css({left: "-" + pixelStr + "px"});
+            this.$chart.css({left: pixelStr + "px"});
         }
     });
 });

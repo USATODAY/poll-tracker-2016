@@ -25,6 +25,7 @@ module.exports = function(grunt) {
     "angular": '../../bower_components/angular/angular',
     "velocity": '../../bower_components/velocity/velocity',
     "humanize": '../../bower_components/humanize/humanize',
+    "draggabilly": '../../bower_components/draggabilly/dist/draggabilly.pkgd',
     "mapbox": '../../bower_components/mapbox.js/mapbox.uncompressed'
   };
 
