@@ -19,6 +19,7 @@ define([
             this.colors = colors;
             this.currentEntry = 0;
             this.$chart = null;
+            this.horizontalPadding = 0;
             this.render();
         },
         template: templates["feverNavView.html"],
@@ -239,7 +240,7 @@ define([
         },
         getDimensions: function() {
             margin = this.getMargin();
-            var width = document.body.clientWidth >= 1200 ? (2320 - (margin.left + margin.right)) : ((document.body.clientWidth - 40) * 2  - (margin.left + margin.right));
+            var width = document.body.clientWidth >= 1200 ? ((2400 - this.horizontalPadding * 4) - (margin.left + margin.right)) : ((document.body.clientWidth - (this.horizontalPadding * 2)) * 2  - (margin.left + margin.right));
             var height = 140 - (margin.top + margin.bottom);
             if (window.innerWidth < 600) {
                 height = 100 - (margin.top + margin.bottom);
@@ -261,7 +262,7 @@ define([
             //runs when scrubber is dragged
             var range = this.containerWidth - 100;
             var $draggie = $(e.target).data('draggabilly');
-            var leftOffset = $draggie.position.x - 20;
+            var leftOffset = $draggie.position.x - this.horizontalPadding;
             var percPos = leftOffset / range;
             // console.log(percPos);
             var pixelStr = "" + ((1 - percPos) * (this.containerWidth));
@@ -276,7 +277,7 @@ define([
             var leftOffset = Math.floor($draggie.position.x);
             var percPos = leftOffset / this.containerWidth;
             var newDataIndex = Math.floor((percPos) * this.data.length);
-            var newScrubberPos = (range - 100) * (1- percPos) + 20;
+            var newScrubberPos = (range - 100) * (1- percPos) + this.horizontalPadding;
             this.$scrubber.css({left: newScrubberPos});
             this.setEntry(newDataIndex);
         },
@@ -309,7 +310,7 @@ define([
         updateScrubberPosition: function() {
             var range = this.containerWidth - 100;
             var percPos = 1 - (this.currentEntry/(this.data.length-1));
-            var newScrubberPos = range * percPos + 20;
+            var newScrubberPos = range * percPos + this.horizontalPadding;
             this.$scrubber.css({left: newScrubberPos});
         },
         updateChartPosition: function() {

@@ -1,8 +1,9 @@
-$horizontal-padding: 20px;
+$horizontal-padding: 0;
 
 .iapp-fever-nav-wrap {
     background: $light-grey;
     bottom: 0;
+    border-radius: 5px;
     padding: 30px $horizontal-padding;
     position: fixed;
     margin: 0 auto;
@@ -19,7 +20,7 @@ $horizontal-padding: 20px;
 }
 
 .iapp-fever-nav-chart-wrap {
-    border-radius: 8px;
+    // border-radius: 8px;
     @include BoxShadowHelper(1);
     overflow-x: hidden;
     overflow-y: hidden;
@@ -59,6 +60,7 @@ $horizontal-padding: 20px;
     right: $horizontal-padding;
     top: 0;
     width: 100px;
+    z-index: 10;
     // transform: translate(50%, 0);
 }
 
@@ -68,7 +70,7 @@ $horizontal-padding: 20px;
     color: white;
     cursor: grab;
     height: 30px;
-    font-family: "Futura Today Light", Arial, sans-serif;
+    font-family: "Futura Today Normal", Arial, sans-serif;
     font-size: 0.8em;
     padding: 5px;
     // padding: 0 1em;
@@ -107,4 +109,25 @@ $horizontal-padding: 20px;
 
 .ui-draggable-dragging .iapp-fever-nav-scrubber-top {
     cursor: grabbing;
+}
+
+.iapp-scrubber-track {
+    background: transparentize($light-grey, 0.5);
+    // border: solid 1px $medium-grey;
+    height: 30px;
+    left: $horizontal-padding;
+    position: absolute;
+    right: $horizontal-padding;
+    @include BoxShadowHelperInset(1);
+    // width: 100%;
+    z-index: 1;
+}
+
+.iapp-scrubber-track-top {
+    border-radius: 5px 5px 0 0;
+    top: 0;
+}
+
+.iapp-scrubber-track-bottom {
+    border-radius: 0 0 5px 5px;
 }
