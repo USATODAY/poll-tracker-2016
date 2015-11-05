@@ -10,8 +10,9 @@ define([
     "views/ControlsView",
     "views/DetailView",
     "views/FeverNavView",
-    "views/ShareView"
-], function(jQuery, _, Backbone, templates, utils, config, CandidateCollection, ShareModel, ControlsView, DetailView, FeverNavView, ShareView) {
+    "views/ShareView",
+    "views/InfoView"
+], function(jQuery, _, Backbone, templates, utils, config, CandidateCollection, ShareModel, ControlsView, DetailView, FeverNavView, ShareView, InfoView) {
     return Backbone.View.extend({
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
@@ -39,6 +40,8 @@ define([
             this.controlsView = new ControlsView({data: this.menuData.races[this.party], party: this.party});
             this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
             this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party});
+            this.infoView = new InfoView();
+            this.$el.append(this.infoView.el);
             this.$('.iapp-loader-wrap').hide();
             return this;
         },

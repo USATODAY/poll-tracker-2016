@@ -7,7 +7,7 @@ define([
     var imagePath = "http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/";
 
     //set project default share language here
-    var defaultShareLanguage = "USA TODAY's 2016 Poll Tracker";
+    var defaultShareLanguage = "Follow who's up and who's down in the 2016 presidential race with USA TODAY's Poll Tracker";
     var defaultShareImage = null;
 
     var isMobile, fb_app_id;
@@ -24,6 +24,9 @@ define([
     } else {
         isMobile = true;
     }
+
+    var credits = "Lee Horwich, Cooper Allen, Katie Smith, Mitchell Thorson, Shawn Sullivan and Chad Palmer, USA TODAY";
+    var aboutText = "Poll Tracker is powered by data from RealClearPolitics, which tracks and averages polling results at the state and national level.";
 
     fb_app_id = staticInfo.facebook.app_id;
     var CANDIDATES = {
@@ -386,6 +389,8 @@ define([
         isIframe: blnIframeEmbed,
         colors: colors,
         CANDIDATES: CANDIDATES,
-        STATES: STATES
+        STATES: STATES,
+        credits: credits,
+        aboutText: aboutText
     };
 });

@@ -53,7 +53,28 @@
     width: 100%;
 }
 
+.iapp-control-row {
+    display: flex;
+    justify-content: space-between;
+}
+
 .iapp-race-select-display {
     
 }
 
+.iapp-race-select-outer {
+    width: 33%;
+}
+
+
+.iapp-share-wrap {
+    flex-grow: 1;
+    text-align: center;
+    width: 33%;
+}
+
+.iapp-info-button {
+    cursor: pointer;
+    text-align: right;
+    width: 33%;
+}

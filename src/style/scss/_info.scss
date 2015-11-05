@@ -1,0 +1,60 @@
+.iapp-info-wrap {
+    background: rgba(255, 255, 255, 0.5);
+    bottom: 0;
+    display: none;
+    left: 0;
+    position: fixed;
+    overflow-y: auto;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    &.iapp-info-show {
+        display: block;
+    }
+}
+
+.iapp-info-inner-wrap {
+    background: white;
+    border-radius: 5px;
+    color: $dark-grey;
+    @include BoxShadowHelper(1);
+    margin: 80px auto 0 auto;
+    max-width: 600px;
+    padding: 2em;
+    position: relative;
+    width: 90%;
+    z-index: 2;
+}
+
+.iapp-info-wrap p {
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+}
+
+.iapp-info-header {
+    font-family: "Futura Today DemiBold", Arial, sans-serif;
+    text-align: center;
+}
+
+.iapp-credits {
+    strong {
+        font-family: Arial, sans-serif;
+        font-weight: 700;
+    }
+}
+
+.iapp-info-background {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.iapp-info-close {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

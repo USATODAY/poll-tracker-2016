@@ -17,7 +17,8 @@ define([
         template: templates["ControlsView.html"],
         events: {
             "change #race-select": "onRaceSelectChange",
-            "change input[type=radio][name=party]": "onPartyChange"
+            "change input[type=radio][name=party]": "onPartyChange",
+            "click .iapp-info-button": "openInfo"
         },
         render: function() {
             this.$el.html(this.template({states: this.data, getFullState: utils.getFullStateName}));
@@ -34,6 +35,9 @@ define([
         onPartyChange: function(e) {
             var newParty = e.target.value;
             Backbone.trigger("party:setCurrent", newParty);
+        },
+        openInfo: function() {
+            Backbone.trigger("info:show");
         }
     });
 });

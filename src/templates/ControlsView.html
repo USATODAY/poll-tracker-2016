@@ -1,23 +1,28 @@
 <div class="switch iapp-party-select">
-        <label>
-            <input type="radio" class='iapp-party-radio' name='party' value='republican'>
-            <div class="iapp-toggle-name">
-                Republican
-            </div>
-        </label>
-        <label>
-            <input type="radio" class='iapp-party-radio' name='party' value='democrat'>
-            <div class="iapp-toggle-name">
-                Democrat
-            </div>
-        </label>
-    </div>
-<div class="iapp-race-select-wrap">
-    <span class="iapp-race-select-display"> <span class="iapp-race-select-display-location">National </span> &#9660;</span>
-    <select id="race-select" class="iapp-race-select" name="race">
-        <% _.each(states, function(state) { %>
-        <option value="<%= state.state %>"><% print(getFullState(state.state))%></option>
-        <%}) %>
-    </select>
+    <label>
+        <input type="radio" class='iapp-party-radio' name='party' value='republican'>
+        <div class="iapp-toggle-name">
+            Republican
+        </div>
+    </label>
+    <label>
+        <input type="radio" class='iapp-party-radio' name='party' value='democrat'>
+        <div class="iapp-toggle-name">
+            Democrat
+        </div>
+    </label>
 </div>
-<div class="iapp-share-wrap"></div>
+<div class="iapp-control-row">
+    <div class="iapp-race-select-outer">
+        <div class="iapp-race-select-wrap">
+            <span class="iapp-race-select-display"> <span class="iapp-race-select-display-location">National </span> &#9660;</span>
+            <select id="race-select" class="iapp-race-select" name="race">
+                <% _.each(states, function(state) { %>
+                <option value="<%= state.state %>"><% print(getFullState(state.state))%></option>
+                <%}) %>
+            </select>
+        </div>
+    </div>
+    <div class="iapp-share-wrap"></div>
+    <div class="iapp-info-button"><img src="http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/info-icon.png" alt="about this project"></div>
+</div>
