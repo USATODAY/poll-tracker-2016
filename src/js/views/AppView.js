@@ -36,7 +36,11 @@ define([
             }
             if (this.feverNavView) {
                 this.feverNavView.remove();
-            }
+            } 
+            if (this.infoView) {
+                this.infoView.remove();
+            } 
+
             this.$el.append(this.template());
             this.controlsView = new ControlsView({data: this.menuData.races[this.party], party: this.party});
             this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
