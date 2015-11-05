@@ -20,7 +20,7 @@ define(
                 'fbShare': this.createFbShareURL(baseURL),
                 'twitterShare': this.createTwitterShareURL(baseURL),
                 'encodedShare': encodeURIComponent(this.get('default_share_language')),
-                'fb_id': config.facebook_app_id,
+                'fb_id': config.fb_app_id,
                 'fb_redirect': 'http://' + window.location.hostname + '/pages/interactives/fb-share/',
                 'email_link': this.createEmailLink(baseURL)
                 
