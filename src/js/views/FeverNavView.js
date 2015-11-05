@@ -7,8 +7,9 @@ define([
     "humanize",
     "templates",
     "config",
-    "draggabilly"
-], function(jQuery, _, Backbone, d3, textures, humanize, templates, config, Draggabilly) {
+    "draggabilly",
+    "api/analytics"
+], function(jQuery, _, Backbone, d3, textures, humanize, templates, config, Draggabilly, Analytics) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.onResize);
@@ -38,6 +39,7 @@ define([
                 containment: '.iapp-fever-nav-scrubber-container'
             });
             this.$scrubber.on('dragMove', _.bind(this.scrubDrag, this));
+            this.$scrubber.on('dragStart', this.scrubberDragStart);
             
             this.drawChart(this.data);
             this.updateScrubberPosition();
@@ -146,6 +148,7 @@ define([
                 containment: '.iapp-fever-nav-container'
             });
             this.$chart.on('dragMove', _.bind(this.chartDrag, this));
+            this.$chart.on('dragStart', this.chartDragStart);
 
 
         },
@@ -318,6 +321,12 @@ define([
             var percPos = (this.currentEntry/(this.data.length-1));
             var pixelStr = "" + (percPos * this.containerWidth);
             this.$chart.css({left: pixelStr + "px"});
+        },
+        scrubberDragStart: function() {
+            Analytics.trackEvent('poll-tracker-date-scrubber-dragged');
+        },
+        chartDragStart: function() {
+            Analytics.trackEvent('poll-tracker-date-chart-dragged');
         }
     });
 });

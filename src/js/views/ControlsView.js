@@ -5,8 +5,9 @@ define([
     "templates",
     "projUtils",
     "views/ShareView",
-    "models/ShareModel"
-], function(jQuery, _, Backbone, templates, utils, ShareView, ShareModel) {
+    "models/ShareModel",
+    "api/analytics"
+], function(jQuery, _, Backbone, templates, utils, ShareView, ShareModel, Analytics) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = opts.data;
@@ -30,13 +31,16 @@ define([
         onRaceSelectChange: function(e) {
             var state = e.target.value;
             this.$('.iapp-race-select-display-location').text(utils.getFullStateName(state));
+            Analytics.trackEvent("poll-tracker-race-location-changed");
             Backbone.trigger("state:setCurrent", state);
         },
         onPartyChange: function(e) {
             var newParty = e.target.value;
+            Analytics.trackEvent("poll-tracker-party-changed");
             Backbone.trigger("party:setCurrent", newParty);
         },
         openInfo: function() {
+            Analytics.trackEvent("poll-tracker-info-opened");
             Backbone.trigger("info:show");
         }
     });

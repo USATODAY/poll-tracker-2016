@@ -5,6 +5,7 @@ define([
     "templates",
     "projUtils",
     "config",
+    "api/analytics",
     "collections/CandidateCollection",
     "models/ShareModel",
     "views/ControlsView",
@@ -12,7 +13,7 @@ define([
     "views/FeverNavView",
     "views/ShareView",
     "views/InfoView"
-], function(jQuery, _, Backbone, templates, utils, config, CandidateCollection, ShareModel, ControlsView, DetailView, FeverNavView, ShareView, InfoView) {
+], function(jQuery, _, Backbone, templates, utils, config, Analytics, CandidateCollection, ShareModel, ControlsView, DetailView, FeverNavView, ShareView, InfoView) {
     return Backbone.View.extend({
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
@@ -73,10 +74,6 @@ define([
                 newIndex = maxVal;
             }
             _this.detailView.update(_this.data.rcp_avg[newIndex]);
-        },
-        setCollection: function(newCollection) {
-            this.currentCollection = newCollection;
-            this.currentCollection.setColors();
         },
         setParty: function(party) {
             /*
