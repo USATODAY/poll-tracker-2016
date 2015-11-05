@@ -39,7 +39,7 @@ define(
         },
 
         createEmailLink: function(url) {
-            return "mailto:?body=" + encodeURIComponent(this.get('sharelanguage')) +  "%0d%0d" + this.createTwitterShareURL(url) + "&subject=";
+            return "mailto:?body=" + encodeURIComponent(this.get('default_share_language')) +  "%0d%0d" + this.createTwitterShareURL(url) + "&subject=" + config.projectTitle;
         },
 
         updateLanguage: function(newShareStr) {
