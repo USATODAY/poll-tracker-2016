@@ -16,7 +16,6 @@ define([
             initialize: function() {
                 this.render();
                 this.listenTo(this.model, 'change', this.render);
-                console.log(this);
             },
             render: function() {
                 this.$el.html(this.template(this.model.toJSON()));

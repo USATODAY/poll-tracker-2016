@@ -93,7 +93,6 @@ define([
             return _.sortBy(_.map(this.candidates, function(candidateObj) {
                 return _this.lookupCandidate(candidateObj);
             }), function(candidateObj) {
-                console.log(candidateObj.value !== "");
                 var val;
                 if (candidateObj.value === "" || candidateObj.value === null) {
                     val = -1;

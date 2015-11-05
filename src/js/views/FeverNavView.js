@@ -267,7 +267,6 @@ define([
             var $draggie = $(e.target).data('draggabilly');
             var leftOffset = $draggie.position.x - this.horizontalPadding;
             var percPos = leftOffset / range;
-            // console.log(percPos);
             var pixelStr = "" + ((1 - percPos) * (this.containerWidth));
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
             this.$chart.css({left: "" + pixelStr + "px"});

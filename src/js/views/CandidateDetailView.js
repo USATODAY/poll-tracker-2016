@@ -9,7 +9,6 @@ define([
     return Backbone.View.extend({
         initialize: function(opts) {
             this.data = opts.data;
-            console.log(this.data);
             this.max_percent = opts.max_percent;
             this.render();
         },

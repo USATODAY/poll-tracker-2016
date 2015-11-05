@@ -14,8 +14,11 @@ define(
         },
 
         initialize: function() {
-            var baseURL = window.location.origin + window.location.pathname;
-           this.set({
+            var baseURL = window.location.href;
+            if (window.location.hash !== "") {
+                baseURL = baseURL.replace(window.location.hash, "");
+            }
+            this.set({
                 'baseURL': baseURL,
                 'fbShare': this.createFbShareURL(baseURL),
                 'twitterShare': this.createTwitterShareURL(baseURL),
