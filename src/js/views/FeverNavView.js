@@ -7,13 +7,14 @@ define([
     "humanize",
     "templates",
     "config",
+    "velocity",
     "draggabilly",
     "api/analytics"
-], function(jQuery, _, Backbone, d3, textures, humanize, templates, config, Draggabilly, Analytics) {
+], function(jQuery, _, Backbone, d3, textures, humanize, templates, config, Velocity, Draggabilly, Analytics) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.onResize);
-            // this.listenTo(Backbone, "window:scroll", this.positionElement);
+            this.listenToOnce(Backbone, "window:scroll", this.show);
             this.data = this.parseData(opts.data);
             this.party = opts.party;
             var colors = {};
@@ -326,6 +327,13 @@ define([
         },
         chartDragStart: function() {
             Analytics.trackEvent('poll-tracker-date-chart-dragged');
+        },
+        show: function(e) {
+            this.$el.velocity({
+                translateY: [0, "100%"],
+                duration: 1000,
+                easing: "easeOutExpo"
+            });
         }
     });
 });
