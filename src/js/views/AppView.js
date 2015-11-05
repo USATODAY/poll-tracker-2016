@@ -24,6 +24,9 @@ define([
         },
         el: '.iapp-app-wrap',
         template: templates["AppView.html"],
+        events: {
+            "click .iapp-info-button": "openInfo"
+        },
         render: function() {
             var _this = this;
 
@@ -126,6 +129,10 @@ define([
                 _this.renderNewState();
             });
 
+        },
+        openInfo: function() {
+            Analytics.trackEvent("poll-tracker-info-opened");
+            Backbone.trigger("info:show");
         }
     });
 });

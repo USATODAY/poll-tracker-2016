@@ -63,18 +63,21 @@
 }
 
 .iapp-race-select-outer {
-    width: 33%;
+    // width: 33%;
 }
 
 
 .iapp-share-wrap {
-    flex-grow: 1;
+    // flex-grow: 1;
     text-align: center;
-    width: 33%;
+    // width: 33%;
 }
 
 .iapp-info-button {
     cursor: pointer;
     text-align: right;
-    width: 33%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    // width: 33%;
 }

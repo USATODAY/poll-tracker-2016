@@ -18,8 +18,7 @@ define([
         template: templates["ControlsView.html"],
         events: {
             "change #race-select": "onRaceSelectChange",
-            "change input[type=radio][name=party]": "onPartyChange",
-            "click .iapp-info-button": "openInfo"
+            "change input[type=radio][name=party]": "onPartyChange"
         },
         render: function() {
             this.$el.html(this.template({states: this.data, getFullState: utils.getFullStateName}));
@@ -38,10 +37,6 @@ define([
             var newParty = e.target.value;
             Analytics.trackEvent("poll-tracker-party-changed");
             Backbone.trigger("party:setCurrent", newParty);
-        },
-        openInfo: function() {
-            Analytics.trackEvent("poll-tracker-info-opened");
-            Backbone.trigger("info:show");
         }
     });
 });
