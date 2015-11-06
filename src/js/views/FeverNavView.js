@@ -16,6 +16,7 @@ define([
             this.listenTo(Backbone, "window:resize", this.onResize);
             this.listenToOnce(Backbone, "window:scroll", this.show);
             this.data = this.parseData(opts.data);
+            this.showArrows = opts.showArrows;
             this.party = opts.party;
             var colors = {};
             this.colors = colors;
@@ -41,6 +42,10 @@ define([
             });
             this.$scrubber.on('dragMove', _.bind(this.scrubDrag, this));
             this.$scrubber.on('dragStart', this.scrubberDragStart);
+
+            if (!this.showArrows) {
+                this.hideArrows();
+            }
             
             this.drawChart(this.data);
             this.updateScrubberPosition();
@@ -272,6 +277,8 @@ define([
             var newDataIndex = Math.floor((1 - percPos) * this.data.length);
             this.$chart.css({left: "" + pixelStr + "px"});
             this.setEntry(newDataIndex);
+            this.hideArrows();
+            Backbone.trigger("fever:dragged");
         },
         chartDrag: function(e) {
             //runs when chart is dragged
@@ -283,6 +290,8 @@ define([
             var newScrubberPos = (range - 100) * (1- percPos) + this.horizontalPadding;
             this.$scrubber.css({left: newScrubberPos});
             this.setEntry(newDataIndex);
+            this.hideArrows();
+            Backbone.trigger("fever:dragged");
         },
         updateDate: function() {
             var currentDate = this.data[this.currentEntry].date;
@@ -298,6 +307,10 @@ define([
             this.currentEntry = newIndex;
             _.throttle(_.bind(this.updateDate, this), 1000)();
             Backbone.trigger("poll:setCurrent", this.currentEntry);
+        },
+        hideArrows: function() {
+            console.log("hiding arrows");
+            this.$('.iapp-fever-nav-scrubber-arrows').addClass('arrows-hide');
         },
         getContainment: function() {
             var winOffset = (document.body.clientWidth - this.containerWidth) / 2;

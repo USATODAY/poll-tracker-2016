@@ -1,5 +1,6 @@
 .iapp-branding {
     margin: 0 auto;
+    padding-top: 1em;
     text-align: center;
 }
 
@@ -26,7 +27,7 @@
 
 .iapp-election-logo {
     display: block;
-    margin: 1em auto;
+    margin: 0 auto 1em auto;
     max-width: 300px;
     width: 100%;
     @media (max-width: $medium-break) {

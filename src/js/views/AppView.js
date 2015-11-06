@@ -17,10 +17,12 @@ define([
     return Backbone.View.extend({
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
+            this.firstDrag = false;
             this.getData(config.dataURL);
             this.listenTo(Backbone, "poll:setCurrent", this.updateDetails);
             this.listenTo(Backbone, "state:setCurrent", this.onStateChange);
             this.listenTo(Backbone, "party:setCurrent", this.setParty);
+            this.listenTo(Backbone, "fever:dragged", this.onDrag);
         },
         el: '.iapp-app-wrap',
         template: templates["AppView.html"],
@@ -47,7 +49,7 @@ define([
             this.$el.append(this.template());
             this.controlsView = new ControlsView({data: this.menuData.races[this.party], party: this.party});
             this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
-            this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party});
+            this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party, showArrows: !this.firstDrag});
             this.infoView = new InfoView();
             this.$el.append(this.infoView.el);
             this.$('.iapp-loader-wrap').hide();
@@ -73,6 +75,11 @@ define([
                 _this.menuData = data;
                 _this.setParty('republican');
             });
+        },
+        onDrag: function() {
+            if(!this.firstDrag) {
+                this.firstDrag = true;
+            }
         },
         updateDetails: function(newIndex) {
             var _this = this;
