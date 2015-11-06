@@ -377,6 +377,11 @@ define([
         "name": "National"
       }
     };
+
+    var ENABLED_RACES = {
+        "republican": ["US", "NH", "IA", "SC", "FL"],
+        "democrat": ["US", "FL", "IA", "NC", "SC", ]
+    };
     
 
     return {
@@ -394,6 +399,7 @@ define([
         STATES: STATES,
         credits: credits,
         aboutText: aboutText,
-        projectTitle: projectTitle
+        projectTitle: projectTitle,
+        ENABLED_RACES: ENABLED_RACES
     };
 });
