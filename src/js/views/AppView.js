@@ -72,7 +72,18 @@ define([
             var _this = this;
             dataURL = utils.getDataURL(dataURL);
             jQuery.getJSON(dataURL, function(data) {
-                _this.menuData = data;
+                //filter through available races and only use the ones predifined in config file
+                _this.menuData = {
+                    races: {
+                        "republican": _.filter(data.races.republican, function(d) {
+                            return _.contains(config.ENABLED_RACES.republican, d.state);
+                        }),
+                        "democrat": _.filter(data.races.democrat, function(d) {
+                            return _.contains(config.ENABLED_RACES.democrat, d.state);
+                        }),
+                    }
+                };
+                console.log(_this.menuData);
                 _this.setParty('republican');
             });
         },
