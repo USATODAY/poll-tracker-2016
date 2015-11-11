@@ -8,6 +8,7 @@ define([
 
     //set project default share language here
     var defaultShareLanguage = "Follow who's up and who's down in the 2016 presidential race with USA TODAY's Poll Tracker";
+    var defaultTwitterShare = "Follow who's up and who's down in the 2016 presidential race with @USATODAY's Poll Tracker";
     var defaultShareImage = null;
 
     var projectTitle = "USA TODAY’s 2016 Presidential Poll Tracker";
@@ -392,6 +393,7 @@ define([
         isMobile: isMobile,
         // isTablet: isTablet,
         defaultShareLanguage: defaultShareLanguage,
+        defaultTwitterLanguage: defaultTwitterShare,
         defaultShareImage: defaultShareImage,
         isIframe: blnIframeEmbed,
         colors: colors,

@@ -16,6 +16,11 @@ div.non-article-content{
   padding: 0 !important;
 }
 
+.ui-film.show {
+  background: $light-grey !important;
+  opacity: 1 !important;
+}
+
 #overlay {
     overflow: visible !important;
 }
