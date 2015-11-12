@@ -4,7 +4,7 @@ define([
     "backbone",
     "templates",
     "projUtils",
-    "config",
+    "config/main",
     "api/analytics",
     "collections/CandidateCollection",
     "models/ShareModel",

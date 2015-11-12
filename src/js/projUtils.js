@@ -1,7 +1,7 @@
 define([
     'jquery',
     'underscore',
-    'config'
+    'config/main'
     ],
     function(jQuery, _, config) {
         return {

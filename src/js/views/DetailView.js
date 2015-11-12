@@ -4,7 +4,7 @@ define([
     "backbone",
     "d3",
     "templates",
-    "config",
+    "config/main",
     "views/CandidateDetailView"
 ], function(jQuery, _, Backbone, d3, templates, config, CandidateDetailView) {
     return Backbone.View.extend({

@@ -6,7 +6,7 @@ define([
     "textures",
     "humanize",
     "templates",
-    "config",
+    "config/main",
     "velocity",
     "draggabilly",
     "api/analytics"

@@ -3,7 +3,7 @@ define([
     "underscore",
     "backbone",
     "templates",
-    "config",
+    "config/main",
     "velocity"
 ], function(jQuery, _, Backbone, templates, config, Velocity) {
     return Backbone.View.extend({

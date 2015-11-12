@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'config',
+    'config/main',
     'models/CandidateModel'
 ], function(jQuery, _, Backbone, config, CandidateModel) {
     return Backbone.Collection.extend({
