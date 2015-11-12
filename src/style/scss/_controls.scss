@@ -1,5 +1,8 @@
 .iapp-control-wrap {
-    padding: 0 5%;
+    position: relative;
+    @media (max-width: $large-break) {
+        padding: 0 2em;
+    }
 }
 
 .iapp-party-select {
@@ -7,6 +10,14 @@
     margin: 2em auto;
     max-width: 100%;
     width: 320px;
+    @media(min-width: $medium-break) {
+        // height: 0;
+        left: 50%;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        transform: translate(-50%, 0);
+    }
 }
 
 .iapp-party-select-button {
@@ -82,5 +93,6 @@
     position: absolute;
     top: 5px;
     right: 5px;
-    // width: 33%;
+    width: 35px;
+    img {width: 100%;}
 }

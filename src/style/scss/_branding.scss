@@ -1,17 +1,26 @@
 .iapp-branding {
-    margin: 0 auto;
     padding-top: 1em;
-    text-align: center;
+    position: relative;
+    text-align: left;
+    @media (max-width: $medium-break) {
+        margin: 0 auto;
+        text-align: center;
+    }
+    @media(max-width: $large-break) {
+        padding: 1em 2em;
+    }
 }
 
 .iapp-title {
     color: $medium-grey;
     display: inline-block;
-    font-size: 2.5em;
+    font-size: 2em;
     margin: 0 0 0.5em 0;
-    // padding: 0 .33em;
     text-align: center;
     text-transform: uppercase;
+    @media (max-width: $large-break) {
+        font-size: 1.8em;
+    }
     @media (max-width: $medium-break) {
         font-size: 1.8em;
     }
@@ -27,17 +36,34 @@
 }
 
 .iapp-election-logo {
-    display: block;
-    margin: 0 auto 1em auto;
-    max-width: 300px;
+    display: inline-block;
+    margin-right: 20px;
+    max-width: 250px;
     width: 100%;
+    @media (max-width: $large-break) {
+        max-width: 230px;
+    }
     @media (max-width: $medium-break) {
-        width: 60%;
+        display: block;
+        margin: 0 auto 1em auto;
+        max-width: 60%;
+        width: 250px;
+    }
+    img {
+        width: 100%;
     }
 }
 
 .iapp-branding a {
     display: block;
+    @media(min-width: $medium-break) {
+        bottom: 0.5em;
+        position: absolute;
+        right: 1em;
+    }
+    @media(min-width: $large-break) {
+        right: 0;
+    }
 }
 
 .iapp-rcp-logo {
