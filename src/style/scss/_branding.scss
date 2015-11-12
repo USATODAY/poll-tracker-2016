@@ -38,8 +38,10 @@
 .iapp-election-logo {
     display: inline-block;
     margin-right: 20px;
+    margin-top: 0.75em;
     max-width: 250px;
     width: 100%;
+    vertical-align: top;
     @media (max-width: $large-break) {
         max-width: 230px;
     }
