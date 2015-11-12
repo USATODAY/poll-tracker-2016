@@ -22,13 +22,17 @@
         font-size: 1.8em;
     }
     @media (max-width: $medium-break) {
-        font-size: 1.8em;
+        font-size: 1.5em;
     }
 }
 
 .iapp-title-bold {
     font-family: "Futura Today DemiBold", Arial, sans-serif;
     margin-right: 15px;
+    @media (max-width: $medium-break) {
+        margin-right: 10px;
+    }
+
 }
 
 .iapp-title-light {
