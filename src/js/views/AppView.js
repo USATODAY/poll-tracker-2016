@@ -18,11 +18,13 @@ define([
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
             this.firstDrag = false;
+            this.hideFeverNav = true;
             this.getData(config.dataURL);
             this.listenTo(Backbone, "poll:setCurrent", this.updateDetails);
             this.listenTo(Backbone, "state:setCurrent", this.onStateChange);
             this.listenTo(Backbone, "party:setCurrent", this.setParty);
             this.listenTo(Backbone, "fever:dragged", this.onDrag);
+            this.listenTo(Backbone, "window:scroll", this.onScroll);
         },
         el: '.iapp-app-wrap',
         template: templates["AppView.html"],
@@ -49,7 +51,7 @@ define([
             this.$el.append(this.template());
             this.controlsView = new ControlsView({data: this.menuData.races[this.party], party: this.party});
             this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
-            this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party, showArrows: !this.firstDrag});
+            this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party, showArrows: !this.firstDrag, hide: this.hideFeverNav});
             this.infoView = new InfoView();
             this.$el.append(this.infoView.el);
             this.$('.iapp-loader-wrap').hide();
@@ -83,7 +85,6 @@ define([
                         }),
                     }
                 };
-                console.log(_this.menuData);
                 _this.setParty('republican');
             });
         },
@@ -151,6 +152,11 @@ define([
         openInfo: function() {
             Analytics.trackEvent("poll-tracker-info-opened");
             Backbone.trigger("info:show");
+        },
+        onScroll: function() {
+            if (this.hideFeverNav) {
+                this.hideFeverNav = false;
+            }
         }
     });
 });

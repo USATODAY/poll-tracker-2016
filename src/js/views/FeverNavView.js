@@ -18,6 +18,7 @@ define([
             this.data = this.parseData(opts.data);
             this.showArrows = opts.showArrows;
             this.party = opts.party;
+            this.hide = opts.hide;
             var colors = {};
             this.colors = colors;
             this.currentEntry = 0;
@@ -49,6 +50,9 @@ define([
             
             this.drawChart(this.data);
             this.updateScrubberPosition();
+            if (!this.hide) {
+                this.show();
+            }
             // this.positionElement();
         },
         positionElement: function(e) {
@@ -309,7 +313,6 @@ define([
             Backbone.trigger("poll:setCurrent", this.currentEntry);
         },
         hideArrows: function() {
-            console.log("hiding arrows");
             this.$('.iapp-fever-nav-scrubber-arrows').addClass('arrows-hide');
         },
         getContainment: function() {
