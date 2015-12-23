@@ -52,7 +52,7 @@ define([], function() {
                 "last_name": "Christie"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Lindsey Graham",
                 "last_name": "Graham"
             },
@@ -62,7 +62,7 @@ define([], function() {
                 "last_name": "Santorum"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Bobby Jindal",
                 "last_name": "Jindal"
             },
