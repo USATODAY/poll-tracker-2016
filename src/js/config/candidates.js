@@ -67,7 +67,7 @@ define([], function() {
                 "last_name": "Jindal"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "George Pataki",
                 "last_name": "Pataki"
             },
