@@ -32,12 +32,12 @@ define([], function() {
                 "last_name": "Fiorina"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Mike Huckabee",
                 "last_name": "Huckabee"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Rand Paul",
                 "last_name": "Paul"
             },
@@ -99,7 +99,7 @@ define([], function() {
                 "last_name": "Webb"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Martin O'Malley",
                 "last_name": "O'Malley"
             },
