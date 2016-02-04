@@ -30,17 +30,13 @@ define([
         onRaceSelectChange: function(e) {
             var state = e.target.value;
             this.$('.iapp-race-select-display-location').text(utils.getFullStateName(state));
-            if (!window.FIRST_CLICK) {
-                Analytics.trackEvent("poll-tracker-first-click");
-            }
+            utils.firstClick();
             Analytics.trackEvent("poll-tracker-race-location-changed");
             Backbone.trigger("state:setCurrent", state);
         },
         onPartyChange: function(e) {
             var newParty = e.target.value;
-            if (!window.FIRST_CLICK) {
-                Analytics.trackEvent("poll-tracker-first-click");
-            }
+            utils.firstClick();
             Analytics.trackEvent("poll-tracker-party-changed");
             Backbone.trigger("party:setCurrent", newParty);
         }

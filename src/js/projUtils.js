@@ -1,9 +1,10 @@
 define([
     'jquery',
     'underscore',
+    'api/analytics',
     'config/main'
     ],
-    function(jQuery, _, config) {
+    function(jQuery, _, Analytics, config) {
         return {
             getDataURL: function(dataURL) {
                 var hostname = window.location.hostname;
@@ -21,6 +22,13 @@ define([
             getFullStateName: function(stateAbbr) {
                 var stateObj = _.findWhere(config.STATES, {'stateAbbr': stateAbbr});
                 return stateObj.name;
+            },
+            firstClick: function() {
+                if (!window.FIRST_CLICK) {
+                    console.log('first click');
+                    Analytics.trackEvent("poll-tracker-first-click");
+                    window.FIRST_CLICK = true;
+                }
             }
             
         };

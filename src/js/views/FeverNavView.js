@@ -9,8 +9,9 @@ define([
     "config/main",
     "velocity",
     "draggabilly",
+    "projUtils",
     "api/analytics"
-], function(jQuery, _, Backbone, d3, textures, humanize, templates, config, Velocity, Draggabilly, Analytics) {
+], function(jQuery, _, Backbone, d3, textures, humanize, templates, config, Velocity, Draggabilly, utils, Analytics) {
     return Backbone.View.extend({
         initialize: function(opts) {
             this.listenTo(Backbone, "window:resize", this.onResize);
@@ -339,15 +340,11 @@ define([
             this.$chart.css({left: pixelStr + "px"});
         },
         scrubberDragStart: function() {
-            if (!window.FIRST_CLICK) {
-                Analytics.trackEvent("poll-tracker-first-click");
-            }
+            utils.firstClick();
             Analytics.trackEvent('poll-tracker-date-scrubber-dragged');
         },
         chartDragStart: function() {
-            if (!window.FIRST_CLICK) {
-                Analytics.trackEvent("poll-tracker-first-click");
-            }
+            utils.firstClick();
             Analytics.trackEvent('poll-tracker-date-chart-dragged');
         },
         show: function(e) {

@@ -150,9 +150,7 @@ define([
 
         },
         openInfo: function() {
-            if (!window.FIRST_CLICK) {
-                Analytics.trackEvent("poll-tracker-first-click");
-            }
+            utils.firstClick();
             Analytics.trackEvent("poll-tracker-info-opened");
             Backbone.trigger("info:show");
         },
