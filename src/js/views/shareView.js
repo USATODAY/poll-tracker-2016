@@ -26,6 +26,9 @@ define([
             },
             onShareButtonClick: function(e) {
                 e.preventDefault();
+                if (!window.FIRST_CLICK) {
+                    Analytics.trackEvent("poll-tracker-first-click");
+                }
                 Analytics.trackEvent('poll-tracker-share-button-clicked-' + jQuery(e.currentTarget).attr('id'));
 
               this.windowPopup(e.currentTarget.href, 500, 300);

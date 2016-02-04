@@ -339,9 +339,15 @@ define([
             this.$chart.css({left: pixelStr + "px"});
         },
         scrubberDragStart: function() {
+            if (!window.FIRST_CLICK) {
+                Analytics.trackEvent("poll-tracker-first-click");
+            }
             Analytics.trackEvent('poll-tracker-date-scrubber-dragged');
         },
         chartDragStart: function() {
+            if (!window.FIRST_CLICK) {
+                Analytics.trackEvent("poll-tracker-first-click");
+            }
             Analytics.trackEvent('poll-tracker-date-chart-dragged');
         },
         show: function(e) {

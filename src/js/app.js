@@ -13,6 +13,7 @@ define(
         require(['jquery-bridget/jquery.bridget'], function() {
             $.bridget( 'draggabilly', Draggabilly );
             addGlobalListeners();
+            window.FIRST_CLICK = false;
             var appView = new AppView();
         });
     };
