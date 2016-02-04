@@ -57,7 +57,7 @@ define([], function() {
                 "last_name": "Graham"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Rick Santorum",
                 "last_name": "Santorum"
             },
