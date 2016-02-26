@@ -17,7 +17,7 @@ define([], function() {
                 "last_name": "Rubio"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Jeb Bush",
                 "last_name": "Bush"
             },
@@ -27,7 +27,7 @@ define([], function() {
                 "last_name": "Cruz"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Carly Fiorina",
                 "last_name": "Fiorina"
             },
@@ -47,7 +47,7 @@ define([], function() {
                 "last_name": "Kasich"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Chris Christie",
                 "last_name": "Christie"
             },
