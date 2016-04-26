@@ -1,5 +1,6 @@
 body.iapp-module {
     height: 400px;
+    min-width: 0;
     overflow-y: hidden;
     .iapp-detail-wrap {
         display: inline-block;
