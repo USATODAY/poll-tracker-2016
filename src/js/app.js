@@ -14,6 +14,7 @@ define(
             $.bridget( 'draggabilly', Draggabilly );
             addGlobalListeners();
             window.FIRST_CLICK = false;
+            $('body').addClass('iapp-embed iapp-module');
             var appView = new AppView();
         });
     };

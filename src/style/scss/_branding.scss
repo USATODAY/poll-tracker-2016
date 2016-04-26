@@ -75,3 +75,17 @@
 .iapp-rcp-logo {
     width: 170px;
 }
+
+.iapp-embed {
+    .iapp-branding {
+        display: none;
+    }
+
+    header {
+        display: none;
+    }
+
+    .iapp-info-button {
+        display: none;
+    }
+}

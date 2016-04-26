@@ -12,6 +12,7 @@ define([
         initialize: function(opts) {
             this.data = opts.data;
             this.party = opts.party;
+            this.currentState = opts.currentState;
             this.render();
         },
         el: '.iapp-control-wrap',
@@ -21,7 +22,7 @@ define([
             "change input[type=radio][name=party]": "onPartyChange"
         },
         render: function() {
-            this.$el.html(this.template({states: this.data, getFullState: utils.getFullStateName}));
+            this.$el.html(this.template({states: this.data, currentState: this.currentState, getFullState: utils.getFullStateName}));
             this.shareModel = new ShareModel();
             this.shareView = new ShareView({model: this.shareModel});
             this.$('input[type=radio][value='+ this.party + ']').prop('checked', true);

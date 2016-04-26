@@ -14,6 +14,11 @@ define([
             this.data = opts.data;
             this.candidates = config.CANDIDATES[this.currentParty];
             this.max_percent = 100;
+            if (opts.embed) {
+                this.isEmbed = true;
+            } else {
+                this.isEmbed = false;
+            }
             this.render();
         },
         el: '.iapp-detail-wrap',
@@ -25,6 +30,10 @@ define([
 
             //create new array of candidates, joining our predifined candidates from config, with the current data
             var candidateData = this.joinCandidateData();
+
+            if (this.isEmbed) {
+                candidateData = _.where(candidateData, {active: true});
+            }
 
             // loop through each candidate entry in the views data
             _.each(candidateData, function(candidate, i) {

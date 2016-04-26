@@ -1,0 +1,92 @@
+body.iapp-module {
+    height: 400px;
+    overflow-y: hidden;
+    .iapp-detail-wrap {
+        display: inline-block;
+        width: 49%;
+        vertical-align: top;
+    }
+
+    .iapp-detail-wrap {
+        height: 250px;
+    }
+
+    .iapp-app-wrap {
+        margin: 0 auto;
+        width: calc(100% - 40px);
+    }
+}
+
+body.iapp-embed {
+    .iapp-app-wrap {
+        padding-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .iapp-detail-wrap {
+        overflow-y: hidden;
+    }
+
+    .iapp-embed-header {
+        color: rgb(51, 51, 51);
+        font-family: "Futura Today DemiBold",  Arial, sans-serif;
+        margin: 0 0 0.5em 0;
+        text-transform: uppercase;
+    }
+
+    .iapp-embed-detail-header {
+        font-family: "Futura Today DemiBold";
+        font-size: 16px;
+        margin-bottom: 0;
+        text-transform: uppercase;
+    }
+
+    .iapp-embed-detail-state {
+        color: #999;
+        font-family: "Futura Today Normal";
+        margin: 0;
+        font-size: 14px;
+        padding: 4px 0;
+        line-height: 1.3;
+    }
+}
+
+.iapp-embed-module-info-item {
+    display: inline-block;
+    width: 49%;
+}
+
+.iapp-embed-link-wrap {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.iapp-embed-info {
+    padding-top: 20px;
+    position: relative;
+}
+
+.btn {
+    display: inline-block;
+    border-radius: 5px;
+    font-family: "Futura Today Light", Arial, sans-serif;
+    padding: 6px 12px;
+    text-align: center;
+}
+
+a.btn {
+    color: $blue;
+    text-decoration: none;
+}
+
+.btn-default {
+    background: white;
+    border: solid 1px #ccc;
+
+    &:hover {
+        background: #ebebeb;
+        border: solid 1px #adadad;
+        color: rgb(51, 51, 51);
+    }
+}

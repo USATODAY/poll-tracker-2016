@@ -15,7 +15,7 @@
 <div class="iapp-control-row">
     <div class="iapp-race-select-outer">
         <div class="iapp-race-select-wrap">
-            <span class="iapp-race-select-display"> <span class="iapp-race-select-display-location">National </span> &#9660;</span>
+            <span class="iapp-race-select-display"> <span class="iapp-race-select-display-location"><% print(getFullState(currentState))%> </span> &#9660;</span>
             <select id="race-select" class="iapp-race-select" name="race">
                 <% _.each(states, function(state) { %>
                 <option value="<%= state.state %>"><% print(getFullState(state.state))%></option>

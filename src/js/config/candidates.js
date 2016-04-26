@@ -12,7 +12,7 @@ define([], function() {
                 "last_name": "Carson"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "Marco Rubio",
                 "last_name": "Rubio"
             },

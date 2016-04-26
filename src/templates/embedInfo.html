@@ -1,0 +1,21 @@
+<div class="iapp-embed-info">
+    <h2 class="iapp-embed-header">2016 Poll Tracker</h2>
+    <% if (module) { %>
+    <div class="iapp-embed-link-wrap">
+        <a href="/pages/interactives/poll-tracker-2016/?party=republican" class="btn btn-default">View Full GOP Polls</a>
+        <a href="/pages/interactives/poll-tracker-2016/?party=democrat" class="btn btn-default">View Full Dem Polls</a>
+    </div>
+    <div class="iapp-embed-module-info-wrap">
+        <div class="iapp-embed-module-info-item">
+            <h3 class="iapp-embed-detail-header">Republican</h3>
+            <h4 class="iapp-embed-detail-state"><%= currentState %></h3>
+        </div>
+        <div class="iapp-embed-module-info-item">
+            <h3 class="iapp-embed-detail-header">Democrat</h3>
+            <h4 class="iapp-embed-detail-state"><%= currentState %></h3>
+        </div>
+    </div>
+    <% } else { %>
+        <h3 class="iapp-embed-detail-header"><%= currentParty %></h3>
+    <% } %>
+</div>
