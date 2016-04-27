@@ -91,3 +91,10 @@ a.btn {
         color: rgb(51, 51, 51);
     }
 }
+
+body.iapp-mobile-module {
+    .iapp-detail-wrap {
+        display: block;
+        width: 100%;
+    }
+}

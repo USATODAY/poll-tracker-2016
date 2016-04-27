@@ -37,6 +37,9 @@ define([
 
             var isEmbed = Boolean(this.params.embed);
             var isModule = Boolean(this.params.module);
+            var isMobileModule = isModule && Boolean(this.params.mobile);
+
+            console.log(isMobileModule);
 
 
             // if (params.party) {
@@ -67,12 +70,15 @@ define([
                 this.infoView = new InfoView();
                 this.$el.append(this.infoView.el);
             } else if (isModule) {
+                if (isMobileModule) {
+                    $('body').addClass('iapp-mobile-module');
+                }
                 this.$el.prepend(templates['embedInfo.html']({'module': true, currentState: utils.getFullStateName(this.currentState)}));
                 this.detailView = new DetailView({data: this.r_data.rcp_avg[0], party: 'republican', el: this.$('.iapp-detail-wrap')[0], embed: true});
                 this.detailView = new DetailView({data: this.d_data.rcp_avg[0], party: 'democrat', el: this.$('.iapp-detail-wrap')[1], embed: true});
             } else {
                 $('body').removeClass('iapp-module');
-                this.$el.prepend(templates['embedInfo.html']({'module': false, currentParty: this.party, currentState: this.currentState}));
+                this.$el.prepend(templates['embedInfo.html']({'module': false, currentParty: this.party, currentState: utils.getFullStateName(this.currentState)}));
                 this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party, embed: true});
             }
             this.$('.iapp-loader-wrap').hide();
