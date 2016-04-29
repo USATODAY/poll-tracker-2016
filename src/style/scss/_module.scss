@@ -1,5 +1,5 @@
 body.iapp-module {
-    height: 400px;
+    height: 420px;
     min-width: 0;
     overflow-y: hidden;
     .iapp-detail-wrap {
@@ -15,6 +15,11 @@ body.iapp-module {
     .iapp-app-wrap {
         margin: 0 auto;
         width: calc(100% - 40px);
+    }
+
+    article {
+        height: 100%;
+        padding-bottom: 20px;
     }
 }
 
@@ -97,4 +102,15 @@ body.iapp-mobile-module {
         display: block;
         width: 100%;
     }
+}
+
+.iapp-module-rcp-link {
+    display: none;
+}
+
+.iapp-module .iapp-module-rcp-link {
+    bottom: 0;
+    display: block;
+    position: absolute;
+    right: 20px;
 }
