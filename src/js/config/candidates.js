@@ -42,7 +42,7 @@ define([], function() {
                 "last_name": "Paul"
             },
             {
-                "active": true,
+                "active": false,
                 "full_name": "John Kasich",
                 "last_name": "Kasich"
             },
