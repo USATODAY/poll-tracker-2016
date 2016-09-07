@@ -12,8 +12,9 @@ define([
     "views/DetailView",
     "views/FeverNavView",
     "views/ShareView",
-    "views/InfoView"
-], function(jQuery, _, Backbone, templates, utils, config, Analytics, CandidateCollection, ShareModel, ControlsView, DetailView, FeverNavView, ShareView, InfoView) {
+    "views/InfoView",
+    "views/LinkView"
+], function(jQuery, _, Backbone, templates, utils, config, Analytics, CandidateCollection, ShareModel, ControlsView, DetailView, FeverNavView, ShareView, InfoView, LinkView) {
     return Backbone.View.extend({
         initialize: function() {
             this.updateDetails = _.throttle(this.updateDetails, 1000);
@@ -47,13 +48,18 @@ define([
             if (this.infoView) {
                 this.infoView.remove();
             } 
+            if (this.linkView) {
+                this.linkView.remove();
+            } 
 
             this.$el.append(this.template());
             this.controlsView = new ControlsView({data: this.menuData.races[this.party], party: this.party});
             this.detailView = new DetailView({data: this.data.rcp_avg[0], party: this.party});
             this.feverNavView = new FeverNavView({data: this.data.rcp_avg, party: this.party, showArrows: !this.firstDrag, hide: this.hideFeverNav});
             this.infoView = new InfoView();
+            this.linkView = new LinkView();
             this.$el.append(this.infoView.el);
+            this.$el.append(this.linkView.el);
             this.$('.iapp-loader-wrap').hide();
             return this;
         },

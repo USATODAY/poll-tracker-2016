@@ -1,0 +1,28 @@
+.iapp-link-wrap {
+    @extend .iapp-info-wrap;
+}
+
+.iapp-link-inner-wrap {
+    @extend .iapp-info-inner-wrap;
+    text-align: center;
+    a {
+        text-decoration: none;
+    }
+}
+
+.iapp-link-button {
+    background: $blue;
+    border-radius: 5px;
+    display: inline-block;
+    color: white;
+    margin: 0 auto;
+    padding: 1em;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Futura Today Normal", Arial, sans-serif;
+}
+
+.close-graph {
+    cursor: pointer;
+    text-decoration: underline;
+}

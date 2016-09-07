@@ -54,6 +54,7 @@ define([
         credits: credits,
         aboutText: aboutText,
         projectTitle: projectTitle,
-        ENABLED_RACES: ENABLED_RACES
+        ENABLED_RACES: ENABLED_RACES,
+        new_url: "/pages/interactives/2016/election/poll-tracker/"
     };
 });
