@@ -10,7 +10,7 @@ define(
     return Backbone.Model.extend( {
         defaults: {
             'default_share_language': config.defaultShareLanguage,
-            'stillimage': 'http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/fb-post.jpg'            
+            'stillimage': 'https://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/fb-post.jpg'
         },
 
         initialize: function() {

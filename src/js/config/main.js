@@ -6,9 +6,9 @@ define([
 
 ], function(jQuery, ENABLED_RACES, CANDIDATES, STATES) {
     //set project data URL here
-    var dataURL = "http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/data/pt_main.json";
+    var dataURL = "https://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/data/pt_main.json";
     //set project image path here
-    var imagePath = "http://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/";
+    var imagePath = "https://www.gannett-cdn.com/experiments/usatoday/2015/10/poll-tracker-2016/img/";
 
     //set project default share language here
     var defaultShareLanguage = "Follow who's up and who's down in the 2016 presidential race with USA TODAY's Poll Tracker";
